@@ -15,14 +15,14 @@ namespace inst::ui {
         
     		if (inst::config::gayMode) {
     			if (std::filesystem::exists(inst::config::appDir + "/images/Install.png")) this->titleImage = Image::New(0, 0, (inst::config::appDir + "/images/Install.png"));
-    			else this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
+    			else this->titleImage = Image::New(0, 0, "romfs:/images/Install.png");
     			if (std::filesystem::exists(inst::config::appDir + "/images/Background.png")) this->SetBackgroundImage(inst::config::appDir + "/images/Background.png");
     			else this->SetBackgroundImage("romfs:/images/Background.png");
                 this->appVersionText = TextBlock::New(0, 0, "", 0);
             }
         else {
     			this->SetBackgroundImage("romfs:/images/Background.png");
-                this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
+                this->titleImage = Image::New(0, 0, "romfs:/images/Install.png");
                 this->appVersionText = TextBlock::New(0, 0, "", 0);
             }
         this->appVersionText->SetColor(COLOR("#FFFFFFFF"));

@@ -19,14 +19,14 @@ namespace inst::ui {
 
 				if (inst::config::gayMode) {
 					if (std::filesystem::exists(inst::config::appDir + "/images/Usb.png")) this->titleImage = Image::New(0, 0, (inst::config::appDir + "/images/Usb.png"));
-						else this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
+						else this->titleImage = Image::New(0, 0, "romfs:/images/Usb.png");
 					if (std::filesystem::exists(inst::config::appDir + "/images/Background.png")) this->SetBackgroundImage(inst::config::appDir + "/images/Background.png");
 						else this->SetBackgroundImage("romfs:/images/Background.png");
 									this->appVersionText = TextBlock::New(0, 0, "", 0);
 				}
 				else {
 					this->SetBackgroundImage("romfs:/images/Background.png");
-					this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
+					this->titleImage = Image::New(0, 0, "romfs:/images/Usb.png");
 					this->appVersionText = TextBlock::New(0, 0, "", 0);
 				}
         this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
@@ -35,7 +35,7 @@ namespace inst::ui {
         this->butText = TextBlock::New(10, 678, "", 24);
         this->butText->SetColor(COLOR("#FFFFFFFF"));
         this->menu = pu::ui::elm::Menu::New(0, 156, 1280, COLOR("#FFFFFF00"), 84, (506 / 84));
-        this->menu->SetOnFocusColor(COLOR("#00000033"));
+        this->menu->SetOnFocusColor(COLOR("#4f4f4d33"));
         this->menu->SetScrollbarColor(COLOR("#1A1919FF"));
         this->infoImage = Image::New(460, 332, "romfs:/images/icons/usb-connection-waiting.png");
         this->Add(this->topRect);
