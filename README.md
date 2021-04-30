@@ -1,7 +1,7 @@
 # TinWoo
 A No-Bullshit-No-Bullshit NSP, NSZ, XCI, and XCZ Installer for Nintendo Switch
 
-![Main Page](https://i.imgur.com/6oZOU8H.jpg)
+![Main Page](https://i.imgur.com/QOi0Yvv.jpg)
 
 ## Features
 - Installs NSP/NSZ/XCI/XCZ files and split NSP/XCI files from your SD card
@@ -25,4 +25,4 @@ https://github.com/HookedBehemoth/Plutonium/tree/301413d86fc3dbcbd99dea44b12d7df
 
 
 You will also need to install libusbhsfs from here:
-https://github.com/DarkMatterCore/libusbhsfs
+https://github.com/DarkMatterCore/libusbhsfs/tree/e600835981430a73087f005728055be184d69cfd
