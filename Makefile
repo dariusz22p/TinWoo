@@ -44,7 +44,7 @@ DATA		:=	data
 INCLUDES	:=	include include/ui include/data include/install include/nx include/nx/ipc include/util include/Plutonium/Plutonium/Output-switch/include
 APP_TITLE	:=	TinWoo Installer
 APP_AUTHOR	:=	MrDude
-APP_VERSION	:=	1.0.3
+APP_VERSION	:=	1.0.4
 ROMFS		:=	romfs
 APP_ICON	:=	icon.jpg
 
@@ -165,17 +165,17 @@ all: $(BUILD)
 
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
-	# $(MAKE) --no-print-directory -C include/Plutonium -f Makefile lib
+	$(MAKE) --no-print-directory -C include/Plutonium -f Makefile lib
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
 ifeq ($(strip $(APP_JSON)),)
-	# @$(MAKE) --no-print-directory -C include/Plutonium/Plutonium -f Makefile clean
+	@$(MAKE) --no-print-directory -C include/Plutonium/Plutonium -f Makefile clean
 	@rm -fr $(BUILD) $(TARGET).nro $(TARGET).nacp $(TARGET).elf
 else
-	# @$(MAKE) --no-print-directory -C include/Plutonium/Plutonium -f Makefile clean
+	@$(MAKE) --no-print-directory -C include/Plutonium/Plutonium -f Makefile clean
 	@rm -fr $(BUILD) $(TARGET).nsp $(TARGET).nso $(TARGET).npdm $(TARGET).elf
 endif
 
