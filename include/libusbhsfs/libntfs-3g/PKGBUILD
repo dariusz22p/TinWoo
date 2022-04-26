@@ -1,0 +1,50 @@
+# Maintainer: Rhys Koedijk <rhys@koedijk.co.nz>
+# Maintainer: DarkMatterCore <pabloacurielz@gmail.com>
+
+pkgbasename=ntfs-3g_ntfsprogs
+pkgname=switch-libntfs-3g
+pkgver=2017.3.23
+pkgrel=3
+pkgdesc='Read-Write NTFS Driver'
+baseurl='https://www.tuxera.com'
+url="${baseurl}/community/open-source-ntfs-3g/"
+license=('GPL')
+arch=('any')
+options=(!strip libtool staticlibs)
+makedepends=('devkitA64' 'dkp-toolchain-vars')
+groups=('switch-portlibs')
+source=(
+  "${baseurl}/opensource/${pkgbasename}-${pkgver}.tgz"
+  "${pkgname}-${pkgver}.patch"
+)
+sha256sums=(
+  '3e5a021d7b761261836dcb305370af299793eedbded731df3d6943802e1262d5'
+  '77fea18e209b8c3a9f7a82a1a9acb0b10ba73ef9ac77e7a50a6752c2db8877a2'
+)
+
+prepare() {
+  cd "${pkgbasename}-${pkgver}"
+  patch -Np1 -i "${srcdir}/${pkgname}-${pkgver}.patch"
+
+  source "${DEVKITPRO}/switchvars.sh"
+}
+
+build() {
+  cd "${pkgbasename}-${pkgver}"
+
+  ./configure --prefix="${PORTLIBS_PREFIX}" --libdir="${PORTLIBS_PREFIX}/lib" --host=aarch64-none-elf \
+    --disable-shared --enable-static --disable-device-default-io-ops \
+    --disable-ntfs-3g --disable-ntfsprogs --disable-plugins --disable-crypto \
+    --without-uuid --without-hd
+
+  make
+}
+
+package() {
+  cd "${pkgbasename}-${pkgver}"
+
+  make DESTDIR="${pkgdir}" install
+
+  install -Dm644 COPYING "${pkgdir}${PORTLIBS_PREFIX}/licenses/${pkgname}/LICENSE"
+  install -Dm644 config.h "${pkgdir}${PORTLIBS_PREFIX}/include/ntfs-3g/config.h"
+}
