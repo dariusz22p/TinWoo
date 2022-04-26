@@ -24,13 +24,13 @@ This code was prominently modified by MrDude on 25/04/2022 to be able to build w
 cd into the tinwoo folder then "make"
 
 ## Build Tinwoo components individually
-First, build and install usb libs - "make libusb".
-Second, built Plutonium - "make plutonium".
+First, build and install usb libs - "make libusb".\
+Second, built Plutonium - "make plutonium".\
 Third, Make Tinwoo - "make tinwwoo".
 
 ## Cleanup tinwoo once built
-First, "make libusbclean"
-Second, "make cleanplutonium"
+First, "make libusbclean".\
+Second, "make cleanplutonium".\
 Third, "make clean"
 
 ## Note
