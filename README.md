@@ -18,7 +18,7 @@ A No-Bullshit-No-Bullshit NSP, NSZ, XCI, and XCZ Installer for Nintendo Switch.
 - Blawar, Hunterweb, DarkMatterCore, XorTroll
 
 ## Modified Code
-This code was prominently modified by MrDude on 25/04/2022 to be able to build with new plutonium and uo to date libnx.
+This code was prominently modified by MrDude on 25/04/2022 to be able to build with new plutonium and up to date libnx.
 
 ## Building All componenets of TinWoo at once
 cd into the tinwoo folder then "make".
