@@ -28,7 +28,7 @@ First, build and install usb libs - "make libusb".\
 Second, built Plutonium - "make plutonium".\
 Third, Make Tinwoo - "make tinwwoo".
 
-## Cleanup tinWoo once built
+## Cleanup TinWoo once built
 First, "make libusbclean".\
 Second, "make cleanplutonium".\
 Third, "make clean".
