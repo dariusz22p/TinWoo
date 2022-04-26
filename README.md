@@ -21,7 +21,7 @@ A No-Bullshit-No-Bullshit NSP, NSZ, XCI, and XCZ Installer for Nintendo Switch.
 This code was prominently modified by MrDude on 25/04/2022 to be able to build with new plutonium and uo to date libnx.
 
 ## Building All componenets of TinWoo at once
-cd into the tinwoo folder then "make".\
+cd into the tinwoo folder then "make".
 
 ## Build TinWoo components individually
 First, build and install usb libs - "make libusb".\
@@ -31,10 +31,10 @@ Third, Make Tinwoo - "make tinwwoo".
 ## Cleanup tinWoo once built
 First, "make libusbclean".\
 Second, "make cleanplutonium".\
-Third, "make clean".\
+Third, "make clean".
 
 ## Note
-This is a work in progress and lets you build with new libnx, plutonium packages. Some stuff still needs fixed to work with the new plutonium and libnx changes.\
+This is a work in progress and lets you build with new libnx, plutonium packages. Some stuff still needs fixed to work with the new plutonium and libnx changes.
 
 ## Stuff still to fix
 Font sizes in menus.\
