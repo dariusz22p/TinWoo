@@ -29,9 +29,9 @@ Second, built Plutonium - "make plutonium".
 Third, Make Tinwoo - "make tinwwoo".
 
 ## Cleanup tinwoo once built
-First, "make libusbclean".
-Second, "make cleanplutonium".
-Third, "make clean".
+First, "make libusbclean"
+Second, "make cleanplutonium"
+Third, "make clean"
 
 ## Note
 This is a work in progress and lets you build with new libnx, plutonium packages. Some stuff still needs fixed to work with the new plutonium and libnx changes.
