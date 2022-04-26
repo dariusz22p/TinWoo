@@ -41,6 +41,7 @@ namespace inst::ui {
         this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
         //this->pageInfoText = TextBlock::New(10, 109, "", 30);
         this->pageInfoText = TextBlock::New(10, 109, "");
+        this->pageInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
         this->pageInfoText->SetColor(COLOR("#FFFFFFFF"));
         //this->butText = TextBlock::New(10, 678, "", 24);
         this->butText = TextBlock::New(10, 678, "");

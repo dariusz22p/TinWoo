@@ -70,7 +70,7 @@ LIBS	:=  -lpu -lcurl -lz -lssh2 -lusbhsfs -lntfs-3g -llwext4 -lmbedtls -lmbedcry
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(PORTLIBS) $(LIBNX) $(CURDIR)/include/Plutonium/Plutonium
+LIBDIRS	:= $(PORTLIBS) $(CURDIR)/include/Plutonium/Plutonium $(DEVKITPRO)/libnx
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
@@ -205,6 +205,16 @@ else
 	@rm -fr $(BUILD) $(TARGET).nsp $(TARGET).nso $(TARGET).npdm $(TARGET).elf
 endif
 
+#---------------------------------------------------------------------------------
+cleanall:
+
+	@echo making everything
+	@$(MAKE) --no-print-directory -C $(CURDIR) -f Makefile clean
+	@$(MAKE) --no-print-directory -C $(CURDIR) -f Makefile libusbclean
+	@$(MAKE) --no-print-directory -C $(CURDIR) -f Makefile cleanplutonium
+	@rm -f $(CURDIR)/*.elf
+	@rm -f $(CURDIR)/*.nacp
+	@rm -f $(CURDIR)/*.nro
 
 #---------------------------------------------------------------------------------
 else

@@ -45,7 +45,7 @@ LIBS	:=  $(SDL_IMAGE_LIBS) $(SDL_GFX_LIBS) $(SDL_MIXER_LIBS) -lEGL -lGLESv2 -lgl
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(PORTLIBS) $(LIBNX)
+LIBDIRS	:= $(PORTLIBS) $(DEVKITPRO)/libnx
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional

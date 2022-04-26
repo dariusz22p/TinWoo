@@ -18,23 +18,20 @@ namespace inst::ui {
     			else this->titleImage = Image::New(0, 0, "romfs:/images/Install.png");
     			if (std::filesystem::exists(inst::config::appDir + "/images/Background.png")) this->SetBackgroundImage(inst::config::appDir + "/images/Background.png");
     			else this->SetBackgroundImage("romfs:/images/Background.png");
-                //this->appVersionText = TextBlock::New(0, 0, "", 0);
                 this->appVersionText = TextBlock::New(0, 0, "");
             }
         else {
     			this->SetBackgroundImage("romfs:/images/Background.png");
                 this->titleImage = Image::New(0, 0, "romfs:/images/Install.png");
-                //this->appVersionText = TextBlock::New(0, 0, "", 0);
                 this->appVersionText = TextBlock::New(0, 0, "");
             }
         this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
-        //this->pageInfoText = TextBlock::New(10, 109, "", 30);
         this->pageInfoText = TextBlock::New(10, 109, "");
+        this->pageInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
         this->pageInfoText->SetColor(COLOR("#FFFFFFFF"));
-        //this->installInfoText = TextBlock::New(15, 648, "", 22);
         this->installInfoText = TextBlock::New(15, 648, "");
+        this->installInfoText->SetFont(pu::ui::MakeDefaultFontName(22));
         this->installInfoText->SetColor(COLOR("#FFFFFFFF"));
-        //this->installBar = pu::ui::elm::ProgressBar::New(10, 600, 850, 40, 100.0f);
         this->installBar = pu::ui::elm::ProgressBar::New(10, 680, 1260, 30, 100.0f);
         this->installBar->SetBackgroundColor(COLOR("#000000FF"));
         this->installBar->SetProgressColor(COLOR("#565759FF"));

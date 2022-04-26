@@ -13,6 +13,7 @@ namespace inst::ui {
             void usbInstallMenuItem_Click();
             void HdInstallMenuItem_Click();
             void settingsMenuItem_Click();
+            void mainMenuThread();
             void exitMenuItem_Click();
             void onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos);
             Image::Ref awooImage;

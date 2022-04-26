@@ -31,20 +31,18 @@ namespace inst::ui {
 			else this->titleImage = Image::New(0, 0, "romfs:/images/Settings.png");
 			if (std::filesystem::exists(inst::config::appDir + "/images/Background.png")) this->SetBackgroundImage(inst::config::appDir + "/images/Background.png");
 			else this->SetBackgroundImage("romfs:/images/Background.png");
-            //this->appVersionText = TextBlock::New(1210, 680, "v" + inst::config::appVersion, 20);
             this->appVersionText = TextBlock::New(1210, 680, "v" + inst::config::appVersion);
         }
      else {
 			this->SetBackgroundImage("romfs:/images/Background.png");
             this->titleImage = Image::New(0, 0, "romfs:/images/Settings.png");
-            //this->appVersionText = TextBlock::New(1210, 680, "v" + inst::config::appVersion, 20);
             this->appVersionText = TextBlock::New(1210, 680, "v" + inst::config::appVersion);
         }
         this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
-        //this->pageInfoText = TextBlock::New(10, 109, "options.title"_lang, 30);
+        this->appVersionText->SetFont(pu::ui::MakeDefaultFontName(20));
         this->pageInfoText = TextBlock::New(10, 109, "options.title"_lang);
+        this->pageInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
         this->pageInfoText->SetColor(COLOR("#FFFFFFFF"));
-        //this->butText = TextBlock::New(10, 678, "options.buttons"_lang, 24);
         this->butText = TextBlock::New(10, 678, "options.buttons"_lang);
         this->butText->SetColor(COLOR("#FFFFFFFF"));
         this->menu = pu::ui::elm::Menu::New(0, 156, 1280, COLOR("#FFFFFF00"), COLOR("#4f4f4d33"), 84, (506 / 84));
@@ -178,10 +176,11 @@ namespace inst::ui {
     }
 
     void optionsPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos) {
+        
         if (Down & HidNpadButton_B) {
             mainApp->LoadLayout(mainApp->mainPage);
         }
-        if ((Down & HidNpadButton_A)) {
+        if (Down & HidNpadButton_A) {
             std::string keyboardResult;
             int rc;
             std::vector<std::string> downloadUrl;

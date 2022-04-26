@@ -37,10 +37,9 @@ namespace inst::ui {
 			this->SetBackgroundImage("romfs:/images/Background.png");
 			this->titleImage = Image::New(0, 0, "romfs:/images/Hd.png");
 		}
-		//this->pageInfoText = TextBlock::New(10, 109, "inst.hd.top_info"_lang, 30);
 		this->pageInfoText = TextBlock::New(10, 109, "inst.hd.top_info"_lang);
+		this->pageInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
 		this->pageInfoText->SetColor(COLOR("#FFFFFFFF"));
-		//this->butText = TextBlock::New(10, 678, "inst.hd.buttons"_lang, 24);
 		this->butText = TextBlock::New(10, 678, "inst.hd.buttons"_lang);
 		this->butText->SetColor(COLOR("#FFFFFFFF"));
 		this->menu = pu::ui::elm::Menu::New(0, 156, 1280, COLOR("#FFFFFF00"), COLOR("#4f4f4d33"), 84, 6);

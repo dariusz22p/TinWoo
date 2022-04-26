@@ -129,7 +129,7 @@ namespace inst::ui {
       inst::ui::mainApp->CreateShowDialog("Space Usage Information", Info, {"common.ok"_lang}, true);
     }
     
-    void mainMenuThread() {
+    void MainPage::mainMenuThread() {
         bool menuLoaded = mainApp->IsShown();
         if (!appletFinished && appletGetAppletType() == AppletType_LibraryApplet) {
             tin::data::NUM_BUFFER_SEGMENTS = 2;
@@ -166,11 +166,9 @@ namespace inst::ui {
         	this->SetBackgroundImage("romfs:/images/Background.png");
         	this->titleImage = Image::New(0, 0, "romfs:/images/Main.png");
         }
-        //this->butText = TextBlock::New(10, 678, "main.buttons"_lang, 24);
         this->butText = TextBlock::New(10, 678, "main.buttons"_lang);
         this->butText->SetColor(COLOR("#FFFFFFFF"));
         this->optionMenu = pu::ui::elm::Menu::New(0, 95, 1280, COLOR("#343E8700"), COLOR("#4f4f4d33"), 94, 6);
-        //this->optionMenu->SetItemsFocusColor(COLOR("#4f4f4d33"));
         this->optionMenu->SetScrollbarColor(COLOR("#1A1919FF"));
         this->installMenuItem = pu::ui::elm::MenuItem::New("main.menu.sd"_lang);
         this->installMenuItem->SetColor(COLOR("#FFFFFFFF"));
@@ -212,7 +210,7 @@ namespace inst::ui {
         this->Add(this->eggImage);
         this->awooImage->SetVisible(!inst::config::gayMode);
         this->Add(this->optionMenu);
-        //this->AddThread(mainMenuThread); //fix later to prevent UI from freezing....
+        //this->AddThread(this->mainMenuThread); //fix later to prevent UI from freezing....
     }
 
     void MainPage::installMenuItem_Click() {
@@ -260,11 +258,13 @@ namespace inst::ui {
     }
 
     void MainPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos) {
+        
         if (((Down & HidNpadButton_Plus) || (Down & HidNpadButton_Minus) || (Down & HidNpadButton_B)) && mainApp->IsShown()) {
             mainApp->FadeOut();
             mainApp->Close();
         }
-        if ((Down & HidNpadButton_A) /*|| (Up & HidGestureType_Touch)*/) {
+        
+        if (Down & HidNpadButton_A) {
             switch (this->optionMenu->GetSelectedIndex()) {
                 case 0:
                 		this->installMenuItem_Click();
