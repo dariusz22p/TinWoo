@@ -42,3 +42,14 @@ Threading in the main menu - to stop GUI freezing.\
 Options page - stop jumping back to top of page after something is selected.\
 Touchscreen not working properly.\
 Maybe some other stuff.
+
+## Build Issues
+Make sure you are using Libnx build at least 9865dbf9 version.\
+
+git clone --recursive https://github.com/switchbrew/libnx.git\
+cd libnx\
+git checkout 9865dbf9\
+make install\
+
+## Check libnx version
+pacman -Q --info libnx
