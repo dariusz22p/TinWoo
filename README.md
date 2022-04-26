@@ -36,7 +36,7 @@ Third, "make clean".\
 ## Note
 This is a work in progress and lets you build with new libnx, plutonium packages. Some stuff still needs fixed to work with the new plutonium and libnx changes.\
 
-## Stuff still to fix:
+## Stuff still to fix
 Font sizes in menus.\
 Threading in the main menu - to stop GUI freezing.\
 Options page - stop jumping back to top of page after something is selected.\
