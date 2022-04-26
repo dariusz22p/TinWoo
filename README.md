@@ -37,8 +37,8 @@ Third, "make clean".
 This is a work in progress and lets you build with new libnx, plutonium packages. Some stuff still needs fixed to work with the new plutonium and libnx changes.
 
 ## Stuff still to fix
-Font sizes in menus.\
+~~Font sizes in menus.~~ Fixed, will upload later.
 Threading in the main menu - to stop GUI freezing.\
 Options page - stop jumping back to top of page after something is selected.\
 Touchscreen not working properly.\
-Probably the makefile for linux - and maybe some other stuff.
+Maybe some other stuff.
