@@ -44,7 +44,7 @@ Touchscreen not working properly.\
 Maybe some other stuff.
 
 ## Build Issues
-Make sure you are using Libnx build at least 9865dbf9 version. \
+Make sure you are using Libnx build at least 9865dbf9 version.
 
 git clone --recursive https://github.com/switchbrew/libnx.git \
 cd libnx \
