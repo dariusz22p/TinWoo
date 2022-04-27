@@ -190,6 +190,7 @@ namespace inst::ui {
                     inst::config::ignoreReqVers = !inst::config::ignoreReqVers;
                     inst::config::setConfig();
                     this->setMenuText();
+                    this->menu->SetSelectedIndex(0);
                     break;
                 case 1:
                     if (inst::config::validateNCAs) {
@@ -197,21 +198,25 @@ namespace inst::ui {
                     } else inst::config::validateNCAs = true;
                     inst::config::setConfig();
                     this->setMenuText();
+                    this->menu->SetSelectedIndex(1);
                     break;
                 case 2:
                     inst::config::overClock = !inst::config::overClock;
                     inst::config::setConfig();
                     this->setMenuText();
+                    this->menu->SetSelectedIndex(2);
                     break;
                 case 3:
                     inst::config::deletePrompt = !inst::config::deletePrompt;
                     inst::config::setConfig();
                     this->setMenuText();
+                    this->menu->SetSelectedIndex(3);
                     break;
                 case 4:
                     inst::config::autoUpdate = !inst::config::autoUpdate;
                     inst::config::setConfig();
                     this->setMenuText();
+                    this->menu->SetSelectedIndex(4);
                     break;
                 case 5:
                     if (inst::config::gayMode) {
@@ -224,6 +229,7 @@ namespace inst::ui {
                         mainApp->mainPage->awooImage->SetVisible(true);
                     }
                     this->setMenuText();
+                    this->menu->SetSelectedIndex(5);
                     thememessage();
                     inst::config::setConfig();
                     break;
@@ -236,6 +242,7 @@ namespace inst::ui {
                         inst::config::useSound = true;
                     }
                     this->setMenuText();
+                    this->menu->SetSelectedIndex(6);
                     inst::config::setConfig();
                     break;
                 
@@ -248,6 +255,7 @@ namespace inst::ui {
                         inst::config::sigPatchesUrl = keyboardResult;
                         inst::config::setConfig();
                         this->setMenuText();
+                        this->menu->SetSelectedIndex(8);
                     }
                     break;
                 case 9:
