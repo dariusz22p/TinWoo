@@ -14,7 +14,7 @@ namespace inst::ui {
             void HdInstallMenuItem_Click();
             void settingsMenuItem_Click();
             void exitMenuItem_Click();
-            void onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos);
+            void onInput(u64 Down, u64 Up, const u64 Held, pu::ui::TouchPoint touch_pos);
             Image::Ref awooImage;
         
         private:

@@ -23,7 +23,7 @@ void MainApplication::OnLoad() {
     // You can use member functions via std::bind() C++ wrapper
     this->SetOnInput([&](const u64 keys_down, const u64 keys_up, const u64 keys_held, const pu::ui::TouchPoint touch_pos) {
          // If X is pressed, start with our dialog questions!
-        if(keys_down & HidNpadButton_X) {
+        if(keys_held & HidNpadButton_X) {
             int opt = this->CreateShowDialog("Question", "Do you like apples?", { "Yes!", "No...", "Cancel" }, true); // (using latest option as cancel option)
             // -1 and -2 are similar, but if the user cancels manually -1 is set, other types or cancel should be -2.
             if((opt == -1) || (opt == -2))  {

@@ -257,9 +257,9 @@ namespace inst::ui {
         mainApp->LoadLayout(mainApp->optionspage);
     }
 
-    void MainPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos) { //some issue with held - fix later....27/4/22
+    void MainPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos) {
         
-        if (((Down & HidNpadButton_Plus) || (Down & HidNpadButton_Minus) || ((Down & HidNpadButton_L) && ( Down & HidNpadButton_R))) && mainApp->IsShown()) {
+        if (((Down & HidNpadButton_Plus) || (Down & HidNpadButton_Minus) || ((Held & HidNpadButton_L) && ( Down & HidNpadButton_R)) || ((Down & HidNpadButton_L) && ( Held & HidNpadButton_R))) && mainApp->IsShown()) {
             mainApp->FadeOut();
             mainApp->Close();
         }
@@ -301,7 +301,6 @@ namespace inst::ui {
         
         if (Down & HidNpadButton_Y) {
         		mathstuff();
-        }
-        
+        }   
     }
 }
