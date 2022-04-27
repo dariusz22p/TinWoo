@@ -265,7 +265,8 @@ namespace inst::ui {
         }
         
         if (Down & HidNpadButton_A) {
-            switch (this->optionMenu->GetSelectedIndex()) {
+        		int menuindex = this->optionMenu->GetSelectedIndex();
+            switch (menuindex) {
                 case 0:
                 		this->installMenuItem_Click();
                     break;

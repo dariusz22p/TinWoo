@@ -18,7 +18,7 @@
 namespace inst::ui {
     extern MainApplication *mainApp;
 
-    std::vector<std::string> languageStrings = {"English", "日本語", "Français", "Deutsch", "Italiano", "Русский"};
+    std::vector<std::string> languageStrings = {"En", "Jpn", "Fr", "De", "It", "Ru", "Zh"};
 
     optionsPage::optionsPage() : Layout::Layout() {
     		this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#00000080"));
@@ -88,24 +88,10 @@ namespace inst::ui {
     }
 
     std::string optionsPage::getMenuLanguage(int ourLangCode) {
-        switch (ourLangCode) {
-            case 1:
-            case 12:
-                return languageStrings[0];
-            case 0:
-                return languageStrings[1];
-            case 2:
-            case 13:
-                return languageStrings[2];
-            case 3:
-                return languageStrings[3];
-            case 4:
-                return languageStrings[4];
-            case 10:
-                return languageStrings[5];
-            default:
-                return "options.language.system_language"_lang;
-        }
+    	 if (ourLangCode >= 0) return languageStrings[ourLangCode];
+    	 	else {
+    	 		return "options.language.system_language"_lang;
+    	 	}
     }
     
     void sigPatchesMenuItem_Click() {
@@ -113,7 +99,6 @@ namespace inst::ui {
     }
     
     void thememessage() {
-    	//inst::ui::mainApp->CreateShowDialog("main.theme.title"_lang, "main.theme.desc"_lang, {"common.ok"_lang}, true);
     	int ourResult = inst::ui::mainApp->CreateShowDialog("main.theme.title"_lang, "main.theme.desc"_lang, {"common.ok"_lang, "common.cancel"_lang}, true);
             if (ourResult != 0) {
             	//
@@ -185,12 +170,15 @@ namespace inst::ui {
             int rc;
             std::vector<std::string> downloadUrl;
             std::vector<std::string> languageList;
-            switch (this->menu->GetSelectedIndex()) {
-                case 0:
+            int index = this->menu->GetSelectedIndex();
+            switch (index) {
+            		 case 0:
                     inst::config::ignoreReqVers = !inst::config::ignoreReqVers;
                     inst::config::setConfig();
                     this->setMenuText();
-                    this->menu->SetSelectedIndex(0);
+                    //makes sure to jump back to the selected item once the menu is reloaded
+                    this->menu->SetSelectedIndex(index);
+                    //
                     break;
                 case 1:
                     if (inst::config::validateNCAs) {
@@ -198,25 +186,25 @@ namespace inst::ui {
                     } else inst::config::validateNCAs = true;
                     inst::config::setConfig();
                     this->setMenuText();
-                    this->menu->SetSelectedIndex(1);
+                    this->menu->SetSelectedIndex(index);
                     break;
                 case 2:
                     inst::config::overClock = !inst::config::overClock;
                     inst::config::setConfig();
                     this->setMenuText();
-                    this->menu->SetSelectedIndex(2);
+                    this->menu->SetSelectedIndex(index);
                     break;
                 case 3:
                     inst::config::deletePrompt = !inst::config::deletePrompt;
                     inst::config::setConfig();
                     this->setMenuText();
-                    this->menu->SetSelectedIndex(3);
+                    this->menu->SetSelectedIndex(index);
                     break;
                 case 4:
                     inst::config::autoUpdate = !inst::config::autoUpdate;
                     inst::config::setConfig();
                     this->setMenuText();
-                    this->menu->SetSelectedIndex(4);
+                    this->menu->SetSelectedIndex(index);
                     break;
                 case 5:
                     if (inst::config::gayMode) {
@@ -229,7 +217,7 @@ namespace inst::ui {
                         mainApp->mainPage->awooImage->SetVisible(true);
                     }
                     this->setMenuText();
-                    this->menu->SetSelectedIndex(5);
+                    this->menu->SetSelectedIndex(index);
                     thememessage();
                     inst::config::setConfig();
                     break;
@@ -242,7 +230,7 @@ namespace inst::ui {
                         inst::config::useSound = true;
                     }
                     this->setMenuText();
-                    this->menu->SetSelectedIndex(6);
+                    this->menu->SetSelectedIndex(index);
                     inst::config::setConfig();
                     break;
                 
@@ -255,7 +243,7 @@ namespace inst::ui {
                         inst::config::sigPatchesUrl = keyboardResult;
                         inst::config::setConfig();
                         this->setMenuText();
-                        this->menu->SetSelectedIndex(8);
+                        this->menu->SetSelectedIndex(index);
                     }
                     break;
                 case 9:
@@ -263,28 +251,13 @@ namespace inst::ui {
                     languageList.push_back("options.language.system_language"_lang);
                     rc = inst::ui::mainApp->CreateShowDialog("options.language.title"_lang, "options.language.desc"_lang, languageList, false);
                     if (rc == -1) break;
-                    switch(rc) {
-                        case 0:
-                            inst::config::languageSetting = 1;
-                            break;
-                        case 1:
-                            inst::config::languageSetting = 0;
-                            break;
-                        case 2:
-                            inst::config::languageSetting = 2;
-                            break;
-                        case 3:
-                            inst::config::languageSetting = 3;
-                            break;
-                        case 4:
-                            inst::config::languageSetting = 4;
-                            break;
-                        case 5:
-                            inst::config::languageSetting = 10;
-                            break;
-                        default:
-                            inst::config::languageSetting = 99;
+                    if (rc < 99) {
+                    	inst::config::languageSetting = (rc);
                     }
+                    else {
+                    	inst::config::languageSetting = 99;
+                    }
+                    
                     inst::config::setConfig();
                     mainApp->FadeOut();
                     mainApp->Close();
