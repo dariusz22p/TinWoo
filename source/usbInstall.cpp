@@ -60,13 +60,15 @@ namespace usbInstStuff {
 
     std::vector<std::string> OnSelected() {
         TUSHeader header;
+        
+        padConfigureInput(8, HidNpadStyleSet_NpadStandard);
+        PadState pad;
+        padInitializeAny(&pad);
+        
         while(true) {
             if (bufferData(&header, sizeof(TUSHeader), 500000000) != 0) break;
             
-            padConfigureInput(1, HidNpadStyleSet_NpadStandard);
-            PadState pad;
-            padInitializeDefault(&pad);
-            hidInitializeTouchScreen();
+            padUpdate(&pad);
             u64 kDown = padGetButtonsDown(&pad);
             
             if (kDown & HidNpadButton_B) return {};

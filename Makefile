@@ -163,7 +163,7 @@ $(info $$NROFLAGS is [${NROFLAGS}])
 all:
 
 	@echo making everything
-	@$(MAKE) --no-print-directory -C $(CURDIR) -f Makefile libusb
+	#@$(MAKE) --no-print-directory -C $(CURDIR) -f Makefile libusb
 	@$(MAKE) --no-print-directory -C $(CURDIR) -f Makefile plutonium
 	@$(MAKE) --no-print-directory -C $(CURDIR) -f Makefile tinwoo
 

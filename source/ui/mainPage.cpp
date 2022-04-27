@@ -210,7 +210,7 @@ namespace inst::ui {
         this->Add(this->eggImage);
         this->awooImage->SetVisible(!inst::config::gayMode);
         this->Add(this->optionMenu);
-        //this->AddThread(this->mainMenuThread); //fix later to prevent UI from freezing....
+        //this->AddThread(mainMenuThread); //fix later to prevent UI from freezing....
     }
 
     void MainPage::installMenuItem_Click() {
@@ -257,20 +257,20 @@ namespace inst::ui {
         mainApp->LoadLayout(mainApp->optionspage);
     }
 
-    void MainPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos) {
+    void MainPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos) { //some issue with held - fix later....27/4/22
         
-        if (((Down & HidNpadButton_Plus) || (Down & HidNpadButton_Minus) || (Down & HidNpadButton_B)) && mainApp->IsShown()) {
+        if (((Down & HidNpadButton_Plus) || (Down & HidNpadButton_Minus) || ((Down & HidNpadButton_L) && ( Down & HidNpadButton_R))) && mainApp->IsShown()) {
             mainApp->FadeOut();
             mainApp->Close();
         }
         
-        if (Down & HidNpadButton_A) {
+        if (Up & HidNpadButton_A) {
             switch (this->optionMenu->GetSelectedIndex()) {
                 case 0:
                 		this->installMenuItem_Click();
                     break;
                 case 1:
-                    this->netInstallMenuItem_Click();
+                		this->netInstallMenuItem_Click();
                     break;
                 case 2:
                     MainPage::usbInstallMenuItem_Click();
@@ -289,14 +289,19 @@ namespace inst::ui {
             }
         }
         
+        /*
+        
         if (Down & HidNpadButton_X) {
             this->awooImage->SetVisible(false);
             this->eggImage->SetVisible(true);
         }
-        if (Up & HidNpadButton_A) {
+        if (Down & HidNpadButton_A) {
             this->eggImage->SetVisible(false);
             if (!inst::config::gayMode) this->awooImage->SetVisible(true);
         }
+        
+        */
+        
         if (Down & HidNpadButton_Y) {
         		mathstuff();
         }

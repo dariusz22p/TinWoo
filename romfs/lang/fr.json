@@ -36,7 +36,7 @@
             "title": "Le mode Applet n'est pas compatible",
             "desc": "Vous pouvez rencontrer des problèmes en utilisant TinWoo Installer en mode Applet. Si vous \navez des problèmes, veuillez lancer TinWoo en mode 'non-Applet'\n (Maintenez R pendant le démarrage d'un jeu)!"
         },
-        "buttons": "\ue0e0 Select    \ue0e3 Espace libre    \ue0e1 Quitter"
+        "buttons": "\ue0e0 Select    \ue0e3 Espace libre    \ue0e4+\ue0e5 ou \ue0ef ou \ue0f0 Quitter"
     },
     "inst": {
         "net": {

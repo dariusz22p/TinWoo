@@ -36,7 +36,7 @@
             "title": "Applet Mode not supported",
             "desc": "You may experience issues using TinWoo Installer in Applet Mode. If you do\nhave problems, please switch to running TinWoo Installer over an installed\ntitle (hold R while starting a game)!"
         },
-        "buttons": "\ue0e0 Select    \ue0e3 FreeSpace    \ue0e1 Exit  "
+        "buttons": "\ue0e0 Select    \ue0e3 FreeSpace    \ue0e4+\ue0e5 or \ue0ef or \ue0f0 Exit"
     },
     "inst": {
         "net": {

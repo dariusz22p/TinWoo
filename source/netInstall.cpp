@@ -221,6 +221,13 @@ namespace netInstStuff{
 
     std::vector<std::string> OnSelected()
     {
+    		/*
+    		https://switchbrew.github.io/libnx/hid_8h.html#aa163470a1a7b811662e5c38905cc86fba4d9ae7fa7e27704abaf86c8a8a5398bd
+    		*/
+    		padConfigureInput(8, HidNpadStyleSet_NpadStandard);
+    		PadState pad;
+    		padInitializeAny(&pad);
+        
         u64 freq = armGetSystemTickFreq();
         u64 startTime = armGetSystemTick();
 
@@ -252,6 +259,8 @@ namespace netInstStuff{
             	
             while (true)
             {
+            		padUpdate(&pad);
+            		
             		// If we don't update the UI occasionally the Switch basically crashes on this screen if you press the home button
                 u64 newTime = armGetSystemTick();
                 if (newTime - startTime >= freq * 0.25) {
@@ -260,12 +269,9 @@ namespace netInstStuff{
                 }
 
                 // Break on input pressed
-                padConfigureInput(1, HidNpadStyleSet_NpadStandard);
-                PadState pad;
-                padInitializeDefault(&pad);
-                hidInitializeTouchScreen();
-                
                 u64 kDown = padGetButtonsDown(&pad);
+                
+                //fix the A button on this page - for some reason it crashes the appif pressed...27/4/22
                 
 
                 if (kDown & HidNpadButton_B)

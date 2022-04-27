@@ -242,6 +242,8 @@ namespace tin::network
         {
             errno = 0;
         }
+        
+        padUpdate(&pad); //test
 
         return read;
     }
@@ -259,6 +261,8 @@ namespace tin::network
         {
             errno = 0;
         }
+        
+        padUpdate(&pad); //test
 
         return written;
     }

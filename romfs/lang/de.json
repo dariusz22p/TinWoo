@@ -36,7 +36,7 @@
             "title": "Applet-Modus wird nicht unterstützt",
             "desc": "Es kann zu Problemen bei der Verwendung des TinWoo Installer im Applet-Modus kommen.\nWenn du Probleme hast, starte den TinWoo Installer über einen installierten Titel (halte R gedrückt, während du ein Spiel startest)!"
         },
-        "buttons": "\ue0e0 Auswählen    \ue0e3 Freiraum    \ue0e1 Beenden"
+        "buttons": "\ue0e0 Auswählen    \ue0e3 Freiraum    \ue0e4+\ue0e5 oder \ue0ef oder \ue0f0 Beenden"
     },
     "inst": {
         "net": {
