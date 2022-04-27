@@ -129,7 +129,7 @@ namespace inst::ui {
       inst::ui::mainApp->CreateShowDialog("Space Usage Information", Info, {"common.ok"_lang}, true);
     }
     
-    void MainPage::mainMenuThread() {
+    void mainMenuThread() {
         bool menuLoaded = mainApp->IsShown();
         if (!appletFinished && appletGetAppletType() == AppletType_LibraryApplet) {
             tin::data::NUM_BUFFER_SEGMENTS = 2;
@@ -210,7 +210,7 @@ namespace inst::ui {
         this->Add(this->eggImage);
         this->awooImage->SetVisible(!inst::config::gayMode);
         this->Add(this->optionMenu);
-        //this->AddThread(mainMenuThread); //fix later to prevent UI from freezing....
+        this->AddRenderCallback(mainMenuThread);
     }
 
     void MainPage::installMenuItem_Click() {
@@ -264,7 +264,7 @@ namespace inst::ui {
             mainApp->Close();
         }
         
-        if (Up & HidNpadButton_A) {
+        if (Down & HidNpadButton_A) {
             switch (this->optionMenu->GetSelectedIndex()) {
                 case 0:
                 		this->installMenuItem_Click();
@@ -289,18 +289,15 @@ namespace inst::ui {
             }
         }
         
-        /*
-        
         if (Down & HidNpadButton_X) {
             this->awooImage->SetVisible(false);
             this->eggImage->SetVisible(true);
         }
-        if (Down & HidNpadButton_A) {
+        if (Up & HidNpadButton_A) {
             this->eggImage->SetVisible(false);
             if (!inst::config::gayMode) this->awooImage->SetVisible(true);
         }
         
-        */
         
         if (Down & HidNpadButton_Y) {
         		mathstuff();

@@ -241,9 +241,8 @@ namespace tin::network
         while ((((ret = recv(sockfd, (u8*)buf + read, len - read, 0)) > 0 && (read += ret) < len) || errno == EAGAIN) && !(padGetButtonsDown(&pad) & HidNpadButton_B)) 
         {
             errno = 0;
+            padUpdate(&pad); //test
         }
-        
-        padUpdate(&pad); //test
 
         return read;
     }
@@ -260,9 +259,8 @@ namespace tin::network
         while ((((ret = send(sockfd, (u8*)buf + written, len - written, 0)) > 0 && (written += ret) < len) || errno == EAGAIN) && !(padGetButtonsDown(&pad) & HidNpadButton_B)) 
         {
             errno = 0;
+            padUpdate(&pad); //test
         }
-        
-        padUpdate(&pad); //test
 
         return written;
     }

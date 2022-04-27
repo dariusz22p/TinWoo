@@ -38,10 +38,10 @@ This is a work in progress and lets you build with new libnx, plutonium packages
 
 ## Stuff still to fix
 ~~Font sizes in menus.~~ \
-Threading in the main menu - to stop GUI freezing.\
+~~Threading in the main menu - to stop GUI freezing or Network installs failing.~~ \
 Options page - stop jumping back to top of page after something is selected.\
 Touchscreen not working properly.\
-Maybe some other stuff.
+Crash when pressing A or + in the network install page.
 
 ## Build Issues
 Make sure you are using Libnx build at least 9865dbf9 version.
