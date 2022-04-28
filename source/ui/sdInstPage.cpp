@@ -50,53 +50,60 @@ namespace inst::ui {
     }
 
     void sdInstPage::drawMenuItems(bool clearItems, std::filesystem::path ourPath) {
-        if (clearItems) this->selectedTitles = {};
-		this->currentDir = ourPath;
+    	int myindex = this->menu->GetSelectedIndex(); //store index so when page redraws we can get the last item we checked.
+    	
+    	if (clearItems) this->selectedTitles = {};
+    	this->currentDir = ourPath;
+    	
+    	auto pathStr = this->currentDir.string();
+  		
+  		if(pathStr.length())
+  		{
+  			if(pathStr[pathStr.length() - 1] == ':')
+  			{
+  				this->currentDir = this->currentDir / "";
+  			}
+  		}
+  		
+      this->menu->ClearItems();
+      try {
+          this->ourDirectories = util::getDirsAtPath(this->currentDir);
+          this->ourFiles = util::getDirectoryFiles(this->currentDir, {".nsp", ".nsz", ".xci", ".xcz"});
+      } 
+      
+      catch (std::exception& e) {
+          this->drawMenuItems(false, this->currentDir.parent_path());
+          return;
+      }
 
-		auto pathStr = this->currentDir.string();
-		if(pathStr.length())
-		{
-			if(pathStr[pathStr.length() - 1] == ':')
-			{
-				this->currentDir = this->currentDir / "";
-			}
-		}
+      std::string itm = "..";
+      auto ourEntry = pu::ui::elm::MenuItem::New(itm);
+      ourEntry->SetColor(COLOR("#FFFFFFFF"));
+      ourEntry->SetIcon("romfs:/images/icons/folder-upload.png");
+      this->menu->AddItem(ourEntry);
 
-        this->menu->ClearItems();
-        try {
-            this->ourDirectories = util::getDirsAtPath(this->currentDir);
-            this->ourFiles = util::getDirectoryFiles(this->currentDir, {".nsp", ".nsz", ".xci", ".xcz"});
-        } catch (std::exception& e) {
-            this->drawMenuItems(false, this->currentDir.parent_path());
-            return;
-        }
-
-        std::string itm = "..";
-        auto ourEntry = pu::ui::elm::MenuItem::New(itm);
-        ourEntry->SetColor(COLOR("#FFFFFFFF"));
-        ourEntry->SetIcon("romfs:/images/icons/folder-upload.png");
-        this->menu->AddItem(ourEntry);
-
-        for (auto& file: this->ourDirectories) {
-            if (file == "..") break;
-            std::string itm = file.filename().string();
-            auto ourEntry = pu::ui::elm::MenuItem::New(itm);
-            ourEntry->SetColor(COLOR("#FFFFFFFF"));
-            ourEntry->SetIcon("romfs:/images/icons/folder.png");
-            this->menu->AddItem(ourEntry);
-        }
-        for (auto& file: this->ourFiles) {
-            std::string itm = file.filename().string();
-            auto ourEntry = pu::ui::elm::MenuItem::New(itm);
-            ourEntry->SetColor(COLOR("#FFFFFFFF"));
-            ourEntry->SetIcon("romfs:/images/icons/checkbox-blank-outline.png");
-            for (long unsigned int i = 0; i < this->selectedTitles.size(); i++) {
-                if (this->selectedTitles[i] == file) {
-                    ourEntry->SetIcon("romfs:/images/icons/check-box-outline.png");
-                }
-            }
-            this->menu->AddItem(ourEntry);
-        }
+      for (auto& file: this->ourDirectories) {
+          if (file == "..") break;
+          std::string itm = file.filename().string();
+          auto ourEntry = pu::ui::elm::MenuItem::New(itm);
+          ourEntry->SetColor(COLOR("#FFFFFFFF"));
+          ourEntry->SetIcon("romfs:/images/icons/folder.png");
+          this->menu->AddItem(ourEntry);
+      }
+      
+      for (auto& file: this->ourFiles) {
+          std::string itm = file.filename().string();
+          auto ourEntry = pu::ui::elm::MenuItem::New(itm);
+          ourEntry->SetColor(COLOR("#FFFFFFFF"));
+          ourEntry->SetIcon("romfs:/images/icons/checkbox-blank-outline.png");
+          for (long unsigned int i = 0; i < this->selectedTitles.size(); i++) {
+              if (this->selectedTitles[i] == file) {
+                  ourEntry->SetIcon("romfs:/images/icons/check-box-outline.png");
+              }
+          }
+          this->menu->AddItem(ourEntry);
+          this->menu->SetSelectedIndex(myindex); //jump to the index we saved from above
+      }
     }
 
     void sdInstPage::followDirectory() {
@@ -142,15 +149,29 @@ namespace inst::ui {
     }
 
     void sdInstPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos) {
+        
         if (Down & HidNpadButton_B) {
             mainApp->LoadLayout(mainApp->mainPage);
         }
-        if ((Down & HidNpadButton_A) /*|| (Up & HidGestureType_Touch)*/) {
-            this->selectNsp(this->menu->GetSelectedIndex());
-            if (this->ourFiles.size() == 1 && this->selectedTitles.size() == 1) {
-                this->startInstall();
-            }
+        
+        if (Down & HidNpadButton_A) {
+        	
+        	int var = this->menu->GetItems().size();
+        	auto s = std::to_string(var);
+        		
+        	if (s == "0") {
+      			//do nothing here because there's no items in the list, that way the app won't freeze
+          }
+          
+          else {
+          	this->selectNsp(this->menu->GetSelectedIndex());
+          	
+          	if (this->ourFiles.size() == 1 && this->selectedTitles.size() == 1) {
+          		this->startInstall();
+          		}
+          }
         }
+        
         if ((Down & HidNpadButton_Y)) {
             if (this->selectedTitles.size() == this->ourFiles.size()) this->drawMenuItems(true, currentDir);
             else {
@@ -163,14 +184,25 @@ namespace inst::ui {
                 this->drawMenuItems(false, currentDir);
             }
         }
+        
         if ((Down & HidNpadButton_X)) {
             inst::ui::mainApp->CreateShowDialog("inst.sd.help.title"_lang, "inst.sd.help.desc"_lang, {"common.ok"_lang}, true);
         }
+        
         if (Down & HidNpadButton_Plus) {
-            if (this->selectedTitles.size() == 0 && this->menu->GetItems()[this->menu->GetSelectedIndex()]->GetIconPath() == "romfs:/images/icons/checkbox-blank-outline.png") {
+        	int var = this->menu->GetItems().size();
+        	auto s = std::to_string(var);
+        		
+        	if (s == "0") {
+        			//do nothing here because there's no items in the list, that way the app won't freeze
+          }
+          
+          else {
+          	if (this->selectedTitles.size() == 0 && this->menu->GetItems()[this->menu->GetSelectedIndex()]->GetIconPath() == "romfs:/images/icons/checkbox-blank-outline.png") {
                 this->selectNsp(this->menu->GetSelectedIndex());
             }
-            if (this->selectedTitles.size() > 0) this->startInstall();
+            if (this->selectedTitles.size() > 0) this->startInstall();	
+          } 
         }
     }
 }

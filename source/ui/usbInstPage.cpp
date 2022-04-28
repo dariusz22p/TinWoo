@@ -51,6 +51,7 @@ namespace inst::ui {
     }
 
     void usbInstPage::drawMenuItems(bool clearItems) {
+    		int myindex = this->menu->GetSelectedIndex(); //store index so when page redraws we can get the last item we checked.
         if (clearItems) this->selectedTitles = {};
         this->menu->ClearItems();
         for (auto& url: this->ourTitles) {
@@ -64,6 +65,7 @@ namespace inst::ui {
                 }
             }
             this->menu->AddItem(ourEntry);
+            this->menu->SetSelectedIndex(myindex); //jump to the index we saved from above
         }
     }
 
@@ -114,12 +116,25 @@ namespace inst::ui {
         if (Down & HidNpadButton_B) {
             mainApp->LoadLayout(mainApp->mainPage);
         }
-        if ((Down & HidNpadButton_A) /*|| (Up & HidGestureType_Touch)*/) {
-            this->selectTitle(this->menu->GetSelectedIndex());
-            if (this->menu->GetItems().size() == 1 && this->selectedTitles.size() == 1) {
-                this->startInstall();
+        
+        if (Down & HidNpadButton_A) {
+        		
+        		int var = this->menu->GetItems().size();
+        		auto s = std::to_string(var);
+        		if (s == "0") {
+        			//do nothing here because there's no items in the list, that way the app won't freeze
             }
+            else {
+            	this->selectTitle(this->menu->GetSelectedIndex());
+            	if (this->menu->GetItems().size() == 1 && this->selectedTitles.size() == 1) {
+            		this->startInstall();
+            	}
+            }
+           
         }
+        
+        
+        
         if ((Down & HidNpadButton_Y)) {
             if (this->selectedTitles.size() == this->menu->GetItems().size()) this->drawMenuItems(true);
             else {
@@ -130,13 +145,23 @@ namespace inst::ui {
                 this->drawMenuItems(false);
             }
         }
+        
         if (Down & HidNpadButton_Plus) {
-            if (this->selectedTitles.size() == 0) {
+        	int var = this->menu->GetItems().size();
+        	auto s = std::to_string(var);
+        		
+        	if (s == "0") {
+        			//do nothing here because there's no items in the list, that way the app won't freeze
+          }
+          
+          else {
+          	if (this->selectedTitles.size() == 0) {
                 this->selectTitle(this->menu->GetSelectedIndex());
                 this->startInstall();
                 return;
             }
-            this->startInstall();
+            this->startInstall();	
+          } 
         }
     }
 }
