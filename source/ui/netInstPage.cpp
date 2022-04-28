@@ -8,6 +8,7 @@
 #include "util/curl.hpp"
 #include "util/lang.hpp"
 #include "netInstall.hpp"
+#include <sstream>
 
 #define COLOR(hex) pu::ui::Color::FromHex(hex)
 
@@ -29,14 +30,12 @@ namespace inst::ui {
 			else this->titleImage = Image::New(0, 0, "romfs:/images/Net.png");
 			if (std::filesystem::exists(inst::config::appDir + "/images/Background.png")) this->SetBackgroundImage(inst::config::appDir + "/images/Background.png");
 			else this->SetBackgroundImage("romfs:/images/Background.png");
-            //this->appVersionText = TextBlock::New(0, 0, "", 0);
-            this->appVersionText = TextBlock::New(0, 0, "");
+            this->appVersionText = TextBlock::New(1210, 680, "");
         }
     else {
 			this->SetBackgroundImage("romfs:/images/Background.png");
             this->titleImage = Image::New(0, 0, "romfs:/images/Net.png");
-            //this->appVersionText = TextBlock::New(0, 0, "", 0);
-            this->appVersionText = TextBlock::New(0, 0, "");
+            this->appVersionText = TextBlock::New(1210, 680, "");
         }
         this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
         //this->pageInfoText = TextBlock::New(10, 109, "", 30);
@@ -62,6 +61,7 @@ namespace inst::ui {
     }
 
     void netInstPage::drawMenuItems(bool clearItems) {
+    		int myindex = this->menu->GetSelectedIndex(); //store index so when page redraws we can get the last item we checked.
         if (clearItems) this->selectedUrls = {};
         if (clearItems) this->alternativeNames = {};
         this->menu->ClearItems();
@@ -70,12 +70,14 @@ namespace inst::ui {
             auto ourEntry = pu::ui::elm::MenuItem::New(itm);
             ourEntry->SetColor(COLOR("#FFFFFFFF"));
             ourEntry->SetIcon("romfs:/images/icons/checkbox-blank-outline.png");
-            for (long unsigned int i = 0; i < this->selectedUrls.size(); i++) {
+            long unsigned int i;
+            for (i = 0; i < this->selectedUrls.size(); i++) {
                 if (this->selectedUrls[i] == url) {
                     ourEntry->SetIcon("romfs:/images/icons/check-box-outline.png");
                 }
             }
             this->menu->AddItem(ourEntry);
+            this->menu->SetSelectedIndex(myindex); //jump to the index we saved from above
         }
     }
 
@@ -84,7 +86,9 @@ namespace inst::ui {
             for (long unsigned int i = 0; i < this->selectedUrls.size(); i++) {
                 if (this->selectedUrls[i] == this->ourUrls[selectedIndex]) this->selectedUrls.erase(this->selectedUrls.begin() + i);
             }
-        } else this->selectedUrls.push_back(this->ourUrls[selectedIndex]);
+        }
+        
+        else this->selectedUrls.push_back(this->ourUrls[selectedIndex]);
         this->drawMenuItems(false);
     }
 
@@ -137,10 +141,10 @@ namespace inst::ui {
             this->pageInfoText->SetText("inst.net.top_info"_lang);
             this->butText->SetText("inst.net.buttons1"_lang);
             this->drawMenuItems(true);
-            this->menu->SetSelectedIndex(0);
             mainApp->CallForRender();
-            this->infoImage->SetVisible(false);
+            this->infoImage->SetVisible(false); //
             this->menu->SetVisible(true);
+            this->menu->SetSelectedIndex(0); //when page first loads jump to start of the menu 
         }
         return;
     }
@@ -167,12 +171,27 @@ namespace inst::ui {
         if (Down & HidNpadButton_B) {
             mainApp->LoadLayout(mainApp->mainPage);
         }
-        if ((Down & HidNpadButton_A) /*|| (Up & HidGestureType_Touch)*/) {
-            this->selectTitle(this->menu->GetSelectedIndex());
-            if (this->menu->GetItems().size() == 1 && this->selectedUrls.size() == 1) {
-                this->startInstall(false);
+        
+
+        if (Down & HidNpadButton_A) {
+        		
+        		int var = this->menu->GetItems().size();
+        		auto s = std::to_string(var);
+        		//std::string s = ourUrlString; //debug stuff
+        		//this->appVersionText->SetText(s); //debug stuff
+        		
+        		if (s == "0") {
+        			//do nothing here because there's no items in the list, that way the app won't freeze
             }
+            else {
+            	this->selectTitle(this->menu->GetSelectedIndex());
+            	if (this->menu->GetItems().size() == 1 && this->selectedUrls.size() == 1) {
+            		this->startInstall(false);
+              }
+            }
+           
         }
+        
         if ((Down & HidNpadButton_Y)) {
             if (this->selectedUrls.size() == this->menu->GetItems().size()) this->drawMenuItems(true);
             else {
@@ -183,13 +202,23 @@ namespace inst::ui {
                 this->drawMenuItems(false);
             }
         }
+        
         if (Down & HidNpadButton_Plus) {
-            if (this->selectedUrls.size() == 0) {
-                this->selectTitle(this->menu->GetSelectedIndex());
-                this->startInstall(false);
-                return;
+        	int var = this->menu->GetItems().size();
+        	auto s = std::to_string(var);
+        		
+        	if (s == "0") {
+        			//do nothing here because there's no items in the list, that way the app won't freeze
+          }
+          
+          else {
+          	if (this->selectedUrls.size() == 0) {
+          		this->selectTitle(this->menu->GetSelectedIndex());
+          		this->startInstall(false);
+          		return;
             }
-            this->startInstall(false);
+            this->startInstall(false);	
+          } 
         }
     }
 }

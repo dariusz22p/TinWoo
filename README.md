@@ -41,7 +41,7 @@ This is a work in progress and lets you build with new libnx, plutonium packages
 ~~Threading in the main menu - to stop GUI freezing or Network installs failing.~~ Fixed \
 ~~Options page - stop jumping back to top of page after something is selected.~~ Fixed \
 Touchscreen not working properly.\
-Crash when pressing A or + in the network install page.
+~~Crash when pressing A or + in the network install page.~~ Fixed \
 
 ## Build Issues
 Make sure you are using Libnx build at least 9865dbf9 version.

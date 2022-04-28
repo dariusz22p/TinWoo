@@ -270,9 +270,6 @@ namespace netInstStuff{
 
                 // Break on input pressed
                 u64 kDown = padGetButtonsDown(&pad);
-                
-                //fix the A button on this page - for some reason it crashes the appif pressed...27/4/22
-                
 
                 if (kDown & HidNpadButton_B)
                 {
