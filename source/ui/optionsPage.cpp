@@ -251,13 +251,31 @@ namespace inst::ui {
                     languageList.push_back("options.language.system_language"_lang);
                     rc = inst::ui::mainApp->CreateShowDialog("options.language.title"_lang, "options.language.desc"_lang, languageList, false);
                     if (rc == -1) break;
-                    if (rc < 99) {
-                    	inst::config::languageSetting = (rc);
+                    switch(rc) {
+                        case 0:
+                            inst::config::languageSetting = 0;
+                            break;
+                        case 1:
+                            inst::config::languageSetting = 1;
+                            break;
+                        case 2:
+                            inst::config::languageSetting = 2;
+                            break;
+                        case 3:
+                            inst::config::languageSetting = 3;
+                            break;
+                        case 4:
+                            inst::config::languageSetting = 4;
+                            break;
+                        case 5:
+                            inst::config::languageSetting = 5;
+                            break;
+                        case 6:
+                            inst::config::languageSetting = 6;
+                            break;
+                        default:
+                            inst::config::languageSetting = 99;
                     }
-                    else {
-                    	inst::config::languageSetting = 99;
-                    }
-                    
                     inst::config::setConfig();
                     mainApp->FadeOut();
                     mainApp->Close();
