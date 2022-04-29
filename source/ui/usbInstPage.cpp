@@ -10,6 +10,7 @@
 
 namespace inst::ui {
     extern MainApplication *mainApp;
+    s32 www=0; //touchscreen variable
 
     usbInstPage::usbInstPage() : Layout::Layout() {
 			this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#00000080"));
@@ -117,23 +118,29 @@ namespace inst::ui {
             mainApp->LoadLayout(mainApp->mainPage);
         }
         
-        if (Down & HidNpadButton_A) {
-        		
-        		int var = this->menu->GetItems().size();
-        		auto s = std::to_string(var);
-        		if (s == "0") {
-        			//do nothing here because there's no items in the list, that way the app won't freeze
-            }
-            else {
-            	this->selectTitle(this->menu->GetSelectedIndex());
-            	if (this->menu->GetItems().size() == 1 && this->selectedTitles.size() == 1) {
-            		this->startInstall();
-            	}
-            }
-           
+        HidTouchScreenState state={0};
+        
+        if  (hidGetTouchScreenStates(&state, 1)) {
+          
+          if ((Down & HidNpadButton_A) || (state.count != www))
+          {
+              www = state.count;
+              
+              if (www != 1) {
+              	int var = this->menu->GetItems().size();
+              	auto s = std::to_string(var);
+              		if (s == "0") {
+              			//do nothing here because there's no items in the list, that way the app won't freeze
+              		}
+              		else {
+              			this->selectTitle(this->menu->GetSelectedIndex());
+              		if (this->menu->GetItems().size() == 1 && this->selectedTitles.size() == 1) {
+              			this->startInstall();
+              		}
+              		}
+              }
+          }
         }
-        
-        
         
         if ((Down & HidNpadButton_Y)) {
             if (this->selectedTitles.size() == this->menu->GetItems().size()) this->drawMenuItems(true);

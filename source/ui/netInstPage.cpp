@@ -14,6 +14,7 @@
 
 namespace inst::ui {
     extern MainApplication *mainApp;
+    s32 xxx=0;
 
     std::string lastUrl = "https://";
     std::string lastFileID = "";
@@ -172,25 +173,33 @@ namespace inst::ui {
             mainApp->LoadLayout(mainApp->mainPage);
         }
         
-
-        if (Down & HidNpadButton_A) {
-        		
-        		int var = this->menu->GetItems().size();
-        		auto s = std::to_string(var);
-        		//std::string s = ourUrlString; //debug stuff
-        		//this->appVersionText->SetText(s); //debug stuff
-        		
-        		if (s == "0") {
-        			//do nothing here because there's no items in the list, that way the app won't freeze
-            }
-            else {
-            	this->selectTitle(this->menu->GetSelectedIndex());
-            	if (this->menu->GetItems().size() == 1 && this->selectedUrls.size() == 1) {
-            		this->startInstall(false);
+        HidTouchScreenState state={0};
+        
+        if  (hidGetTouchScreenStates(&state, 1)) {
+          
+          if ((Down & HidNpadButton_A) || (state.count != xxx))
+          {
+              xxx = state.count;
+              
+              if (xxx != 1) {
+              	int var = this->menu->GetItems().size();
+            		auto s = std::to_string(var);
+            		//std::string s = ourUrlString; //debug stuff
+            		//this->appVersionText->SetText(s); //debug stuff
+            		
+            		if (s == "0") {
+            			//do nothing here because there's no items in the list, that way the app won't freeze
+                }
+                else {
+                	this->selectTitle(this->menu->GetSelectedIndex());
+                	if (this->menu->GetItems().size() == 1 && this->selectedUrls.size() == 1) {
+                		this->startInstall(false);
+                  }
+                }
               }
-            }
-           
+          }
         }
+
         
         if ((Down & HidNpadButton_Y)) {
             if (this->selectedUrls.size() == this->menu->GetItems().size()) this->drawMenuItems(true);

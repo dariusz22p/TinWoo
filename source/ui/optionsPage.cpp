@@ -17,6 +17,7 @@
 
 namespace inst::ui {
     extern MainApplication *mainApp;
+    s32 prev_touchcount=0;
 
     std::vector<std::string> languageStrings = {"En", "Jpn", "Fr", "De", "It", "Ru", "Zh"};
 
@@ -165,139 +166,151 @@ namespace inst::ui {
         if (Down & HidNpadButton_B) {
             mainApp->LoadLayout(mainApp->mainPage);
         }
-        if (Down & HidNpadButton_A) {
-            std::string keyboardResult;
-            int rc;
-            std::vector<std::string> downloadUrl;
-            std::vector<std::string> languageList;
-            int index = this->menu->GetSelectedIndex();
-            switch (index) {
-            		 case 0:
-                    inst::config::ignoreReqVers = !inst::config::ignoreReqVers;
-                    inst::config::setConfig();
-                    this->setMenuText();
-                    //makes sure to jump back to the selected item once the menu is reloaded
-                    this->menu->SetSelectedIndex(index);
-                    //
-                    break;
-                case 1:
-                    if (inst::config::validateNCAs) {
-                        if (inst::ui::mainApp->CreateShowDialog("options.nca_warn.title"_lang, "options.nca_warn.desc"_lang, {"common.cancel"_lang, "options.nca_warn.opt1"_lang}, false) == 1) inst::config::validateNCAs = false;
-                    } else inst::config::validateNCAs = true;
-                    inst::config::setConfig();
-                    this->setMenuText();
-                    this->menu->SetSelectedIndex(index);
-                    break;
-                case 2:
-                    inst::config::overClock = !inst::config::overClock;
-                    inst::config::setConfig();
-                    this->setMenuText();
-                    this->menu->SetSelectedIndex(index);
-                    break;
-                case 3:
-                    inst::config::deletePrompt = !inst::config::deletePrompt;
-                    inst::config::setConfig();
-                    this->setMenuText();
-                    this->menu->SetSelectedIndex(index);
-                    break;
-                case 4:
-                    inst::config::autoUpdate = !inst::config::autoUpdate;
-                    inst::config::setConfig();
-                    this->setMenuText();
-                    this->menu->SetSelectedIndex(index);
-                    break;
-                case 5:
-                    if (inst::config::gayMode) {
-                        inst::config::gayMode = false;
-                        mainApp->mainPage->awooImage->SetVisible(false);
-						
-                    }
-                    else {
-                        inst::config::gayMode = true;
-                        mainApp->mainPage->awooImage->SetVisible(true);
-                    }
-                    this->setMenuText();
-                    this->menu->SetSelectedIndex(index);
-                    thememessage();
-                    inst::config::setConfig();
-                    break;
-                
-                case 6:
-                    if (inst::config::useSound) {
-                        inst::config::useSound = false;
-                    }
-                    else {
-                        inst::config::useSound = true;
-                    }
-                    this->setMenuText();
-                    this->menu->SetSelectedIndex(index);
-                    inst::config::setConfig();
-                    break;
-                
-                case 7:
-                    sigPatchesMenuItem_Click();
-                    break;
-                case 8:
-                    keyboardResult = inst::util::softwareKeyboard("options.sig_hint"_lang, inst::config::sigPatchesUrl.c_str(), 500);
-                    if (keyboardResult.size() > 0) {
-                        inst::config::sigPatchesUrl = keyboardResult;
-                        inst::config::setConfig();
-                        this->setMenuText();
-                        this->menu->SetSelectedIndex(index);
-                    }
-                    break;
-                case 9:
-                    languageList = languageStrings;
-                    languageList.push_back("options.language.system_language"_lang);
-                    rc = inst::ui::mainApp->CreateShowDialog("options.language.title"_lang, "options.language.desc"_lang, languageList, false);
-                    if (rc == -1) break;
-                    switch(rc) {
-                        case 0:
-                            inst::config::languageSetting = 0;
-                            break;
-                        case 1:
-                            inst::config::languageSetting = 1;
-                            break;
-                        case 2:
-                            inst::config::languageSetting = 2;
-                            break;
-                        case 3:
-                            inst::config::languageSetting = 3;
-                            break;
-                        case 4:
-                            inst::config::languageSetting = 4;
-                            break;
-                        case 5:
-                            inst::config::languageSetting = 5;
-                            break;
-                        case 6:
-                            inst::config::languageSetting = 6;
-                            break;
-                        default:
-                            inst::config::languageSetting = 99;
-                    }
-                    inst::config::setConfig();
-                    mainApp->FadeOut();
-                    mainApp->Close();
-                    break;
-                case 10:
-                    if (inst::util::getIPAddress() == "1.0.0.127") {
-                        inst::ui::mainApp->CreateShowDialog("main.net.title"_lang, "main.net.desc"_lang, {"common.ok"_lang}, true);
-                        break;
-                    }
-                    downloadUrl = inst::util::checkForAppUpdate();
-                    if (!downloadUrl.size()) {
-                        mainApp->CreateShowDialog("options.update.title_check_fail"_lang, "options.update.desc_check_fail"_lang, {"common.ok"_lang}, false);
-                        break;
-                    }
-                    this->askToUpdate(downloadUrl);
-                    break;
-                case 11:
-                    inst::ui::mainApp->CreateShowDialog("options.credits.title"_lang, "options.credits.desc"_lang, {"common.close"_lang}, true);
-                    break;
-                default:
-                    break;
-            }
+        
+        HidTouchScreenState state={0};
+        
+        if  (hidGetTouchScreenStates(&state, 1)) {
+          
+          if ((Down & HidNpadButton_A) || (state.count != prev_touchcount))
+          {
+              prev_touchcount = state.count;
+              
+              if (prev_touchcount != 1) {
+      
+              std::string keyboardResult;
+              int rc;
+              std::vector<std::string> downloadUrl;
+              std::vector<std::string> languageList;
+              int index = this->menu->GetSelectedIndex();
+              switch (index) {
+              		 case 0:
+                      inst::config::ignoreReqVers = !inst::config::ignoreReqVers;
+                      inst::config::setConfig();
+                      this->setMenuText();
+                      //makes sure to jump back to the selected item once the menu is reloaded
+                      this->menu->SetSelectedIndex(index);
+                      //
+                      break;
+                  case 1:
+                      if (inst::config::validateNCAs) {
+                          if (inst::ui::mainApp->CreateShowDialog("options.nca_warn.title"_lang, "options.nca_warn.desc"_lang, {"common.cancel"_lang, "options.nca_warn.opt1"_lang}, false) == 1) inst::config::validateNCAs = false;
+                      } else inst::config::validateNCAs = true;
+                      inst::config::setConfig();
+                      this->setMenuText();
+                      this->menu->SetSelectedIndex(index);
+                      break;
+                  case 2:
+                      inst::config::overClock = !inst::config::overClock;
+                      inst::config::setConfig();
+                      this->setMenuText();
+                      this->menu->SetSelectedIndex(index);
+                      break;
+                  case 3:
+                      inst::config::deletePrompt = !inst::config::deletePrompt;
+                      inst::config::setConfig();
+                      this->setMenuText();
+                      this->menu->SetSelectedIndex(index);
+                      break;
+                  case 4:
+                      inst::config::autoUpdate = !inst::config::autoUpdate;
+                      inst::config::setConfig();
+                      this->setMenuText();
+                      this->menu->SetSelectedIndex(index);
+                      break;
+                  case 5:
+                      if (inst::config::gayMode) {
+                          inst::config::gayMode = false;
+                          mainApp->mainPage->awooImage->SetVisible(false);
+  						
+                      }
+                      else {
+                          inst::config::gayMode = true;
+                          mainApp->mainPage->awooImage->SetVisible(true);
+                      }
+                      this->setMenuText();
+                      this->menu->SetSelectedIndex(index);
+                      thememessage();
+                      inst::config::setConfig();
+                      break;
+                  
+                  case 6:
+                      if (inst::config::useSound) {
+                          inst::config::useSound = false;
+                      }
+                      else {
+                          inst::config::useSound = true;
+                      }
+                      this->setMenuText();
+                      this->menu->SetSelectedIndex(index);
+                      inst::config::setConfig();
+                      break;
+                  
+                  case 7:
+                      sigPatchesMenuItem_Click();
+                      break;
+                  case 8:
+                      keyboardResult = inst::util::softwareKeyboard("options.sig_hint"_lang, inst::config::sigPatchesUrl.c_str(), 500);
+                      if (keyboardResult.size() > 0) {
+                          inst::config::sigPatchesUrl = keyboardResult;
+                          inst::config::setConfig();
+                          this->setMenuText();
+                          this->menu->SetSelectedIndex(index);
+                      }
+                      break;
+                  case 9:
+                      languageList = languageStrings;
+                      languageList.push_back("options.language.system_language"_lang);
+                      rc = inst::ui::mainApp->CreateShowDialog("options.language.title"_lang, "options.language.desc"_lang, languageList, false);
+                      if (rc == -1) break;
+                      switch(rc) {
+                          case 0:
+                              inst::config::languageSetting = 0;
+                              break;
+                          case 1:
+                              inst::config::languageSetting = 1;
+                              break;
+                          case 2:
+                              inst::config::languageSetting = 2;
+                              break;
+                          case 3:
+                              inst::config::languageSetting = 3;
+                              break;
+                          case 4:
+                              inst::config::languageSetting = 4;
+                              break;
+                          case 5:
+                              inst::config::languageSetting = 5;
+                              break;
+                          case 6:
+                              inst::config::languageSetting = 6;
+                              break;
+                          default:
+                              inst::config::languageSetting = 99;
+                      }
+                      inst::config::setConfig();
+                      mainApp->FadeOut();
+                      mainApp->Close();
+                      break;
+                  case 10:
+                      if (inst::util::getIPAddress() == "1.0.0.127") {
+                          inst::ui::mainApp->CreateShowDialog("main.net.title"_lang, "main.net.desc"_lang, {"common.ok"_lang}, true);
+                          break;
+                      }
+                      downloadUrl = inst::util::checkForAppUpdate();
+                      if (!downloadUrl.size()) {
+                          mainApp->CreateShowDialog("options.update.title_check_fail"_lang, "options.update.desc_check_fail"_lang, {"common.ok"_lang}, false);
+                          break;
+                      }
+                      this->askToUpdate(downloadUrl);
+                      break;
+                  case 11:
+                      inst::ui::mainApp->CreateShowDialog("options.credits.title"_lang, "options.credits.desc"_lang, {"common.close"_lang}, true);
+                      break;
+                  default:
+                      break;
+              }
+          }
         }
     }
+  }
 }

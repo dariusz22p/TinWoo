@@ -18,6 +18,7 @@
 
 	
 int statvfs(const char *path, struct statvfs *buf);
+s32 prev_touchcount=0;
 
 double GetAvailableSpace(const char* path)
 {
@@ -264,32 +265,42 @@ namespace inst::ui {
             mainApp->Close();
         }
         
-        if (Down & HidNpadButton_A) {
-        		int menuindex = this->optionMenu->GetSelectedIndex();
-            switch (menuindex) {
-                case 0:
-                		this->installMenuItem_Click();
-                    break;
-                case 1:
-                		this->netInstallMenuItem_Click();
-                    break;
-                case 2:
-                    MainPage::usbInstallMenuItem_Click();
-                    break;
-                case 3:
-                    MainPage::HdInstallMenuItem_Click();
-                    break;
-                case 4:
-                    MainPage::settingsMenuItem_Click();
-                    break;
-                case 5:
-                    MainPage::exitMenuItem_Click();
-                    break;
-                default:
-                    break;
-            }
-        }
+        HidTouchScreenState state={0};
         
+        if  (hidGetTouchScreenStates(&state, 1)) {
+          
+          if ((Down & HidNpadButton_A) || (state.count != prev_touchcount))
+          {
+              prev_touchcount = state.count;
+              
+              if (prev_touchcount != 1) {
+              	int menuindex = this->optionMenu->GetSelectedIndex();
+                switch (menuindex) {
+                    case 0:
+                    		this->installMenuItem_Click();
+                        break;
+                    case 1:
+                    		this->netInstallMenuItem_Click();
+                        break;
+                    case 2:
+                        MainPage::usbInstallMenuItem_Click();
+                        break;
+                    case 3:
+                        MainPage::HdInstallMenuItem_Click();
+                        break;
+                    case 4:
+                        MainPage::settingsMenuItem_Click();
+                        break;
+                    case 5:
+                        MainPage::exitMenuItem_Click();
+                        break;
+                    default:
+                        break;
+                }
+              }
+          }
+        }
+        		
         if (Down & HidNpadButton_X) {
             this->awooImage->SetVisible(false);
             this->eggImage->SetVisible(true);

@@ -11,6 +11,7 @@
 
 namespace inst::ui {
     extern MainApplication *mainApp;
+    s32 zzz=0; //touchscreen variable
 
     HDInstPage::HDInstPage() : Layout::Layout() {
         this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#00000080"));
@@ -148,12 +149,25 @@ namespace inst::ui {
         if (Down & HidNpadButton_B) {
             mainApp->LoadLayout(mainApp->mainPage);
         }
-        if ((Down & HidNpadButton_A)) {
-            this->selectNsp(this->menu->GetSelectedIndex());
-            if (this->ourFiles.size() == 1 && this->selectedTitles.size() == 1) {
-                this->startInstall();
-            }
-        }
+         
+        HidTouchScreenState state={0};
+        
+        if  (hidGetTouchScreenStates(&state, 1)) {
+          
+          if ((Down & HidNpadButton_A) || (state.count != zzz))
+          {
+              zzz = state.count;
+              
+              if (zzz != 1) {
+              	this->selectNsp(this->menu->GetSelectedIndex());
+              	if (this->ourFiles.size() == 1 && this->selectedTitles.size() == 1) {
+              		this->startInstall();
+              	}
+              	
+              }
+          }
+        }     
+        
         if ((Down & HidNpadButton_Y)) {
             if (this->selectedTitles.size() == this->ourFiles.size()) this->drawMenuItems(true, currentDir);
             else {
@@ -166,9 +180,11 @@ namespace inst::ui {
                 this->drawMenuItems(false, currentDir);
             }
         }
+        
         if ((Down & HidNpadButton_X)) {
             inst::ui::mainApp->CreateShowDialog("inst.hd.help.title"_lang, "inst.hd.help.desc"_lang, {"common.ok"_lang}, true);
         }
+        
         if (Down & HidNpadButton_Plus) {
             if (this->selectedTitles.size() == 0 && this->menu->GetItems()[this->menu->GetSelectedIndex()]->GetIconPath() == "romfs:/images/icons/checkbox-blank-outline.png") {
                 this->selectNsp(this->menu->GetSelectedIndex());

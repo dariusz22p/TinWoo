@@ -11,6 +11,7 @@
 
 namespace inst::ui {
     extern MainApplication *mainApp;
+    s32 yyy=0;
 
     sdInstPage::sdInstPage() : Layout::Layout() {
         this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#00000080"));
@@ -154,24 +155,34 @@ namespace inst::ui {
             mainApp->LoadLayout(mainApp->mainPage);
         }
         
-        if (Down & HidNpadButton_A) {
-        	
-        	int var = this->menu->GetItems().size();
-        	auto s = std::to_string(var);
-        		
-        	if (s == "0") {
-      			//do nothing here because there's no items in the list, that way the app won't freeze
-          }
+        HidTouchScreenState state={0};
+        
+        if  (hidGetTouchScreenStates(&state, 1)) {
           
-          else {
-          	this->selectNsp(this->menu->GetSelectedIndex());
-          	
-          	if (this->ourFiles.size() == 1 && this->selectedTitles.size() == 1) {
-          		this->startInstall();
-          		}
+          if ((Down & HidNpadButton_A) || (state.count != yyy))
+          {
+              yyy = state.count;
+              
+              if (yyy != 1) {
+              	int var = this->menu->GetItems().size();
+              	auto s = std::to_string(var);
+              		
+              	if (s == "0") {
+            			//do nothing here because there's no items in the list, that way the app won't freeze
+                }
+                
+                else {
+                	this->selectNsp(this->menu->GetSelectedIndex());
+                	
+                	if (this->ourFiles.size() == 1 && this->selectedTitles.size() == 1) {
+                		this->startInstall();
+                		}
+                }
+              
+              }
           }
         }
-        
+              
         if ((Down & HidNpadButton_Y)) {
             if (this->selectedTitles.size() == this->ourFiles.size()) this->drawMenuItems(true, currentDir);
             else {
