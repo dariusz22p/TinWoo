@@ -38,7 +38,7 @@ namespace inst::ui {
         this->butText = TextBlock::New(10, 678, "inst.sd.buttons"_lang);
         this->butText->SetColor(COLOR("#FFFFFFFF"));
         this->menu = pu::ui::elm::Menu::New(0, 156, 1280, COLOR("#FFFFFF00"), COLOR("#4f4f4d33"), 84, (506 / 84));
-        this->menu->SetItemsFocusColor(COLOR("#4f4f4d33"));
+        this->menu->SetItemsFocusColor(COLOR("#4f4f4dAA"));
         this->menu->SetScrollbarColor(COLOR("#1A1919FF"));
         this->Add(this->topRect);
         this->Add(this->infoRect);
