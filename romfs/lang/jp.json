@@ -4,18 +4,18 @@
             "sd": "SDカードからインストール",
             "net": "LANまたはインターネット経由でインストール",
             "usb": "USB経由でインストール",
-			"hdd": "Install over USB HDD",
+			"hdd": "USB HDDにインストール",
             "sig": "署名パッチを管理する",
             "set": "設定",
             "exit": "終了"
         },
 		"theme": {
-            "title": "Use Theme",
-            "desc": "Press OK to quit Tinwoo or Cancel to continue.\n\nThemes will activate the next time you start Tinwoo."
+            "title": "使用テーマ",
+            "desc": "Tinwooを終了する場合はOKを、続行する場合はキャンセルを押してください。\n\nテーマは、次回Tinwooを起動したときに有効になります。"
 		},
 		"hdd": {
 			"title": "USB HDD",
-			"notfound": "USB HDD is not connected."
+			"notfound": "USB HDDが接続されていません。"
 		},
         "net": {
             "title": "ネットワーク接続は利用できません",
@@ -36,7 +36,7 @@
             "title": "アプレットモードはサポートされていません",
             "desc": "アプレットモードでTinWooを使用すると問題が発生する場合があります。\n問題が発生した場合は、インストール済みのタイトルでTinWooを実行するように切り替えてください\n(ゲームの開始中にRを押したままにしてください)!"
         },
-        "buttons": "\ue0e0 選択    \ue0e3 フリースペース    \ue0e4+\ue0e5 また \ue0ef また \ue0f0 終了"
+        "buttons": "\ue0e0 選択    \ue0e3 フリースペース    \ue0e4+\ue0e5 または \ue0ef または \ue0f0 終了"
     },
     "inst": {
         "net": {
@@ -82,14 +82,14 @@
         "hd": {
             "help": {
                 "title": "Help",
-                "desc": "Copy your NSP, NSZ, XCI, or XCZ files to your hard drive, browse to and\nselect the ones you want to install, then press the Plus button."
+                "desc": "NSP、NSZ、XCI、XCZのファイルをハードディスクにコピーし、インストールしたいファイルをブラウズして選択し、Plusボタンを押してください。"
             },
-            "top_info": "Select the files you want to install, then press the Plus button!",
-            "source_string": " from hard drive",
-            "delete_info": " installed\nDelete it from the hard drive?",
-            "delete_info_multi": " files installed successfully!\nDelete them from the hard drive?",
-            "delete_desc": "The original files aren't needed anymore after they've been installed",
-            "buttons": "\ue0e0 Select File    \ue0e3 Select All    \ue0ef Install File(s)    \ue0e2 Help    \ue0e1 Cancel"
+            "top_info": "インストールしたいファイルを選択し、＋ボタンを押す!",
+            "source_string": " ハードディスクから",
+            "delete_info": " インストール済み\nハードディスクから削除しますか?",
+            "delete_info_multi": " ファイルが正常にインストールされました!\nDハードディスクから削除しますか?",
+            "delete_desc": "インストールした後は、元のファイルはもう必要ありません",
+            "buttons": "\ue0e0 ファイルを選択    \ue0e3 全て選択    \ue0ef ファイルをインストール    \ue0e2 ヘルプ    \ue0e1 キャンセル"
         },
         "usb": {
             "help": {
@@ -169,7 +169,7 @@
             "ask_delete": "インストール後に元のファイルを削除する",
             "auto_update": "TinWooのアップデートを自動的に確認する",
             "gay_option": "テーマを使用する",
-            "useSound": "Use sound notifications during installs",
+            "useSound": "インストール時にサウンドで通知する",
             "sig_url": "署名パッチのソースURL: ",
             "language": "言語: ",
             "check_update": "TinWoo Installerのアップデートを確認",
@@ -197,7 +197,7 @@
         },
         "credits": {
             "title": "以下の方々に感謝します!",
-            "desc": "TinWoo - MrDude\nXorTroll - Plutonium\nTinleaf - BlaWar\nAwoo Installer - Huntereb\nHard Drive Support - DarkMatterCore\n\n\nhttps://github.com/Huntereb/Awoo-Installer\nhttps://github.com/blawar/tinleaf\nhttps://github.com/DarkMatterCore/libusbhsfs\n\nThanks for testing - LyuboA"
+            "desc": "TinWoo - MrDude\nXorTroll - Plutonium\nTinleaf - BlaWar\nAwoo Installer - Huntereb\nハードディスク対応 - DarkMatterCore\n\n\nhttps://github.com/Huntereb/Awoo-Installer\nhttps://github.com/blawar/tinleaf\nhttps://github.com/DarkMatterCore/libusbhsfs\n\nThanks テスト - LyuboA"
         },
         "language": {
             "title": "TinWoo Installerの言語を選択",
