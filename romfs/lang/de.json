@@ -4,18 +4,18 @@
             "sd": "Von SD-Karte installieren",
             "net": "Über LAN oder Internet installieren",
             "usb": "Über USB installieren",
-			"hdd": "Install over USB HDD",
+			"hdd": "Über USB HDD installieren",
             "sig": "Verwalte Signatur-Patches",
             "set": "Einstellungen",
             "exit": "Beenden"
         },
 		"theme": {
-            "title": "Use Theme",
-            "desc": "Press OK to quit Tinwoo or Cancel to continue.\n\nThemes will activate the next time you start Tinwoo."
+            "title": "Design anwenden",
+            "desc": "Drück OK um Tinwoo zu beenden oder Abbrechen um fort zu fahren.\n\nDesigns werden das nächste Mal aktiviert wenn du Tinwoo startest."
 		},
 		"hdd": {
 			"title": "USB HDD",
-			"notfound": "USB HDD is not connected."
+			"notfound": "USB HDD ist nicht verfügbar."
 		},
         "net": {
             "title": "Netzwerk Verbindung nicht verfügbar",
@@ -74,22 +74,22 @@
             },
             "top_info": "Wähle Dateien zur Installation vom Server aus und drücke dann \ue0b3!",
             "source_string": " von der SD Karte",
-            "delete_info": " installiert! Soll es von der SD-Karte gelöscht werden?",
+            "delete_info": " installiert! Von der SD-Karte gelöscht werden?",
             "delete_info_multi": " Dateien erfolgreich installiert! Sollen diese von der SD-Karte gelöscht werden?",
             "delete_desc": "Die originalen Dateien werden nach der Installation nicht mehr benötigt",
-            "buttons": "\ue0e0 Datei auswählen    \ue0e3 Alle auswählen    \ue0ef Datei(en) installieren    \ue0e1 Abbrechen"
+            "buttons": "\ue0e0 Datei auswählen    \ue0e3 Alle auswählen    \ue0ef Datei(en) installieren    \ue0e2 Hilfe    \ue0e1 Abbrechen"
         },
         "hd": {
             "help": {
-                "title": "Help",
-                "desc": "Copy your NSP, NSZ, XCI, or XCZ files to your hard drive, browse to and\nselect the ones you want to install, then press the Plus button."
+                "title": "Hilfe",
+                "desc": "Kopier NSP, NSZ, XCI, or XCZ files auf deine Festplatte, suche nach ihnen und\nwähle die zu installierenden, und drücke dann \ue0b3."
             },
-            "top_info": "Select the files you want to install, then press the Plus button!",
-            "source_string": " from hard drive",
-            "delete_info": " installed\nDelete it from the hard drive?",
-            "delete_info_multi": " files installed successfully!\nDelete them from the hard drive?",
-            "delete_desc": "The original files aren't needed anymore after they've been installed",
-            "buttons": "\ue0e0 Select File    \ue0e3 Select All    \ue0ef Install File(s)    \ue0e2 Help    \ue0e1 Cancel"
+            "top_info": "Wähle Dateien zur Installation vom Server aus und drücke dann \ue0b3!",
+            "source_string": " von der Festplatte",
+            "delete_info": " installiert! Von der SD-Karte gelöscht werden?",
+            "delete_info_multi": " Dateien erfolgreich installiert! Sollen diese von der Festplatte gelöscht werden?",
+            "delete_desc": "Die originalen Dateien werden nach der Installation nicht mehr benötigt",
+            "buttons": "\ue0e0 Datei auswählen    \ue0e3 Alle auswählen    \ue0ef Datei(en) installieren    \ue0e2 Hilfe    \ue0e1 Abbrechen"
         },
         "usb": {
             "help": {
@@ -130,9 +130,9 @@
         },
         "finished": [
             "Genieße deine \"legalen Sicherheitskopien\"!",
-            "Ich bin mir sicher nachdem du das Spiel probiert hast wirst du Spaß dabei haben das Spiel tatsächlich zu kaufen!",
+            "Ich bin mir sicher nachdem du das Spiel probiert hast wirst du Spaß dabei haben das Spiel tatsächlich zu kaufen, du Hurensohn!",
             "Du hast das Spiel sicher gekauft? Nintendo sagt danke für deinen Kauf!",
-            "DRM zu umgehen ist toll, stimmt es?",
+            "DRM zu umgehen ist toll, oder?",
             "Du hast wahrscheinlich sechs Bäume gerettet. Dadurch dass du das Spiel nicht gekauft hast!\nAll das Plastik geht irgendwo hin!",
             "Nintendo Ninjas wurden zu deinem Standort gesendet.",
             "Und wir mussten dir nicht mal politische Ideologien in den Rachen stopfen!"
@@ -149,7 +149,7 @@
         "backup_failed_desc": "Falls du hekate nicht nutzt, kannst du diese Warnung ignorieren.",
         "download_failed": "Konnte die Signatur Patches nicht herunterladen",
         "download_failed_desc": "Eventuell hast du eine ungültige Quelle in den Einstellung\nvom TinWoo Installer eingestellt oder der Host ist derzeitig offline.",
-        "version_text2": "Deine Signatur Patches wurden aktualisiert, für deine HOS Version ",
+        "version_text2": "Deine Signatur Patches wurden, für deine HOS Version, aktualisiert ",
         "install_complete": "Installation abgeschlossen!",
         "complete_desc": "Starte die Konsole neu um die Änderung zu übernehmen",
         "restart": "Neustarten",
@@ -167,9 +167,9 @@
             "nca_verify": "Verifiziere NCA Signatur vor der Installation",
             "boost_mode": "Aktiviere \"Boost-Modus\" während der Installation",
             "ask_delete": "Frage ob installierte Titel gelöscht werden sollen",
-            "auto_update": "Suche automatisch nach Updates für TinWoo Installer",
-            "gay_option": "Thema verwenden",
-            "useSound": "Use sound notifications during installs",
+            "auto_update": "Suche automatisch nach Updates für TinWoo",
+            "gay_option": "Design verwenden",
+            "useSound": "Nutzen von Benachrichtungstönen während Installation",
             "sig_url": "Signatur Patches URL: ",
             "language": "Sprache: ",
             "check_update": "Suche nach Updates für TinWoo Installer",
@@ -180,31 +180,31 @@
             "desc": "Einige installierbare Dateien können bösartige Inhalte enthalten! Deaktiviere\ndiese Funktion nur, wenn du absolut sicher bist, dass die zu installierende\nSoftware vertrauenswürdig ist! Willst du die NCA-Signaturprüfung immer noch deaktivieren?",
             "opt1": "Ja, ich möchte mein Gerät bricken"
         },
-        "sig_hint": "Gebe eine URL an, um Signatur Patches zu beziehen",
+        "sig_hint": "Gebe eine URL an, um Signatur Patches runterzuladen",
         "update": {
             "title": "Neue Version verfügbar",
             "desc0": "TinWoo Installer ",
             "desc1": " ist jetzt verfügbar! Bereit zu aktualisieren?",
             "opt0": "Aktualisieren",
-            "top_info": "Aktualisierung zu TinWoo Installer ",
-            "bot_info": "Beziehe TinWoo Installer ",
-            "bot_info2": "Extrahiere TinWoo Installer ",
+            "top_info": "Update von TinWoo Installer ",
+            "bot_info": "Lade TinWoo Installer herunter ",
+            "bot_info2": "Entpacke TinWoo Installer ",
             "complete": "Aktualisierung vollständig!",
             "failed": "Aktualisierung fehlgeschlagen!",
             "end_desc": "Die Software wird nun beendet.",
-            "title_check_fail": "Keine Aktualisierungen gefunden",
-            "desc_check_fail": "Du bist auf der aktuellsten Version des TinWoo Installer!"
+            "title_check_fail": "Keine Updates gefunden",
+            "desc_check_fail": "Du bist auf der aktuellsten Version von TinWoo!"
         },
         "credits": {
             "title": "Vielen Dank an die folgenden Leute!",
-            "desc": "TinWoo - MrDude\nXorTroll - Plutonium\nTinleaf - BlaWar\nAwoo Installer - Huntereb\nHard Drive Support - DarkMatterCore\n\n\nhttps://github.com/Huntereb/Awoo-Installer\nhttps://github.com/blawar/tinleaf\nhttps://github.com/DarkMatterCore/libusbhsfs\n\nThanks for testing - LyuboA"
+            "desc": "TinWoo - MrDude\nXorTroll - Plutonium\nTinleaf - BlaWar\nAwoo Installer - Huntereb\nHard Drive Support - DarkMatterCore\n\n\nhttps://github.com/Huntereb/Awoo-Installer\nhttps://github.com/blawar/tinleaf\nhttps://github.com/DarkMatterCore/libusbhsfs\n\nDanke für's Testen - LyuboA"
         },
         "language": {
-            "title": "Wähle TinWoo Installer Sprache",
+            "title": "Wähle die Sprache für TinWoo",
             "desc": "Die Software wird danach beendet. Drücke B um den Vorgang abzubrechen.",
             "system_language": "System"
         },
-        "title": "Ändere TinWoo Installer Einstellungen!",
+        "title": "Ändere TinWoo Einstellungen!",
         "buttons": "\ue0e0 Auswählen/Ändern    \ue0e1 Abbrechen "
     },
     "common": {
