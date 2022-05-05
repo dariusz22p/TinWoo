@@ -23,7 +23,7 @@ cd into the tinwoo folder then "make".
 ## Build TinWoo components individually
 First, build and install usb libs - "make libusb".\
 Second, built Plutonium - "make plutonium".\
-Third, Make Tinwoo - "make tinwwoo".
+Third, Make Tinwoo - "make tinwoo".
 
 ## Cleanup TinWoo once built
 First, "make libusbclean".\
