@@ -143,6 +143,11 @@ namespace inst::ui {
         useSoundOption->SetIcon(this->getMenuOptionIcon(inst::config::useSound));
         this->menu->AddItem(useSoundOption);
         
+        auto useoldphp = pu::ui::elm::MenuItem::New("options.menu_items.useoldphp"_lang);
+        useoldphp->SetColor(COLOR("#FFFFFFFF"));
+        useoldphp->SetIcon(this->getMenuOptionIcon(inst::config::useoldphp));
+        this->menu->AddItem(useoldphp);
+        
         auto SigPatch = pu::ui::elm::MenuItem::New("main.menu.sig"_lang);
         SigPatch->SetColor(COLOR("#FFFFFFFF"));
         this->menu->AddItem(SigPatch);
@@ -250,11 +255,24 @@ namespace inst::ui {
                       this->menu->SetSelectedIndex(index);
                       inst::config::setConfig();
                       break;
+                 
+                 case 7:
+                      if (inst::config::useoldphp) {
+                          inst::config::useoldphp = false;
+                      }
+                      else {
+                          inst::config::useoldphp = true;
+                      }
+                      this->setMenuText();
+                      this->menu->SetSelectedIndex(index);
+                      inst::config::setConfig();
+                      break;
                   
-                  case 7:
+                  case 8:
                       sigPatchesMenuItem_Click();
                       break;
-                  case 8:
+                  
+                  case 9:
                       keyboardResult = inst::util::softwareKeyboard("options.sig_hint"_lang, inst::config::sigPatchesUrl.c_str(), 500);
                       if (keyboardResult.size() > 0) {
                           inst::config::sigPatchesUrl = keyboardResult;
@@ -263,7 +281,7 @@ namespace inst::ui {
                           this->menu->SetSelectedIndex(index);
                       }
                       break;
-                  case 9:
+                  case 10:
                       languageList = languageStrings;
                       languageList.push_back("options.language.system_language"_lang);
                       rc = inst::ui::mainApp->CreateShowDialog("options.language.title"_lang, "options.language.desc"_lang, languageList, false);
@@ -297,7 +315,7 @@ namespace inst::ui {
                       mainApp->FadeOut();
                       mainApp->Close();
                       break;
-                  case 10:
+                  case 11:
                       if (inst::util::getIPAddress() == "1.0.0.127") {
                           inst::ui::mainApp->CreateShowDialog("main.net.title"_lang, "main.net.desc"_lang, {"common.ok"_lang}, true);
                           break;
@@ -309,7 +327,7 @@ namespace inst::ui {
                       }
                       this->askToUpdate(downloadUrl);
                       break;
-                  case 11:
+                  case 12:
                       inst::ui::mainApp->CreateShowDialog("options.credits.title"_lang, "options.credits.desc"_lang, {"common.close"_lang}, true);
                       break;
                   default:

@@ -172,6 +172,7 @@
             "auto_update": "TinWooのアップデートを自動的に確認する",
             "gay_option": "テーマを使用する",
             "useSound": "インストール時にサウンドで通知する",
+            "useoldphp": "Use old php files for http server installs",
             "sig_url": "署名パッチのソースURL: ",
             "language": "言語: ",
             "check_update": "TinWoo Installerのアップデートを確認",

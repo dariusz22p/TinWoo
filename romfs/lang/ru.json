@@ -172,6 +172,7 @@
             "auto_update": "Автоматически проверять наличие обновлений",
             "gay_option": "Использовать тему",
             "useSound": "Use sound notifications during installs",
+            "useoldphp": "Use old php files for http server installs",
             "sig_url": "URL для скачивания Signature patches: ",
             "language": "Язык: ",
             "check_update": "Проверить наличие обновлений TinWoo Installer",

@@ -334,8 +334,14 @@ namespace netInstStuff{
                                   while (index < response.size()) {
                                       if (response[index] == '"') {
                                           if (link.find("../") == std::string::npos)
-                                              if (link.find(".nsp") != std::string::npos || link.find(".nsz") != std::string::npos || link.find(".xci") != std::string::npos || link.find(".xcz") != std::string::npos)
-                                                  urls.push_back(link);
+                                              if (link.find(".nsp") != std::string::npos || link.find(".nsz") != std::string::npos || link.find(".xci") != std::string::npos || link.find(".xcz") != std::string::npos){
+                                              	if (inst::config::useoldphp) {
+                                              		urls.push_back(url + link);
+                                              	}
+                                              	else {
+                                              		urls.push_back(link);
+                                              	}
+                                              }
                                           break;
                                       }
                                       link += response[index++];
