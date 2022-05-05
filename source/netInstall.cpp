@@ -49,6 +49,7 @@ const unsigned int MAX_URLS = 256;
 const int REMOTE_INSTALL_PORT = 2000;
 static int m_serverSocket = 0;
 static int m_clientSocket = 0;
+bool netConnected = false;
 
 namespace inst::ui {
     extern MainApplication *mainApp;
@@ -245,18 +246,21 @@ namespace netInstStuff{
                 if (m_serverSocket <= 0)
                 {
                     THROW_FORMAT("Server socket failed to initialize.\n");
+                    close(m_serverSocket); //close if already open.
+                    m_serverSocket = 0; //reset so we can try again.
                 }
             }
 
             std::string ourIPAddress = inst::util::getIPAddress();
             inst::ui::mainApp->netinstPage->pageInfoText->SetText("inst.net.top_info1"_lang + ourIPAddress);
             inst::ui::mainApp->CallForRender();
+            netConnected = false;
             LOG_DEBUG("%s %s\n", "Switch IP is ", ourIPAddress.c_str());
             LOG_DEBUG("%s\n", "Waiting for network");
             LOG_DEBUG("%s\n", "B to cancel");
             
             std::vector<std::string> urls;
-            	
+            
             while (true)
             {
             		padUpdate(&pad);
@@ -282,6 +286,84 @@ namespace netInstStuff{
                 if (kDown & HidNpadButton_X)
                 {
                     inst::ui::mainApp->CreateShowDialog("inst.net.help.title"_lang, "inst.net.help.desc"_lang, {"common.ok"_lang}, true);
+                }
+                
+                if (kDown & HidNpadButton_Minus) {
+                    std::string url = inst::util::softwareKeyboard("inst.net.url.hint"_lang, inst::config::httpIndexUrl, 500);
+                    if(url == "") {
+                    	url = "http://127.0.0.1";
+                    }
+                    
+                    else {
+                    	
+                    	inst::config::httpIndexUrl = url;
+                    	inst::config::setConfig();
+                    
+
+                      std::string response;
+                      if (inst::util::formatUrlString(url) == "" || url == "https://" || url == "http://")
+                          inst::ui::mainApp->CreateShowDialog("inst.net.url.invalid"_lang, "", {"common.ok"_lang}, false);
+                      else {
+                          if (url[url.size() - 1] != '/')
+                              url += '/';
+                          response = inst::curl::downloadToBuffer(url);
+                      }
+
+                      if (!response.empty()) {
+                          if (response[0] == '{')              
+                              try {
+                              	nlohmann::json j = nlohmann::json::parse(response);
+                              	for (const auto &file : j["files"]) {
+                              		urls.push_back(file["url"]);
+                            		}
+                                return urls;
+                              } 
+                              catch (const nlohmann::detail::exception& ex) {
+                              	LOG_DEBUG("Failed to parse JSON\n");
+                              }
+                          
+                          else if (response[0] == '<') {
+                              std::size_t index = 0;
+                              while (index < response.size()) {
+                                  std::string link;
+                                  auto found = response.find("href=\"", index);
+                                  if (found == std::string::npos)
+                                      break;
+                                  
+                                  index = found + 6;
+                                  while (index < response.size()) {
+                                      if (response[index] == '"') {
+                                          if (link.find("../") == std::string::npos)
+                                              if (link.find(".nsp") != std::string::npos || link.find(".nsz") != std::string::npos || link.find(".xci") != std::string::npos || link.find(".xcz") != std::string::npos)
+                                                  urls.push_back(link);
+                                          break;
+                                      }
+                                      link += response[index++];
+                                  }
+
+                              }
+                              if (urls.size() > 0){
+                              	/*
+                              	//debug
+                            		FILE * fp;
+                            		std::string debug = urls[0];
+                            		const char *info = debug.c_str();
+                            		fp = fopen ("debug.txt", "w+");
+                            		fprintf(fp, "%s", info);
+                            		fclose(fp);
+                            		*/
+                            		return urls;
+                              }
+                                  
+                              LOG_DEBUG("Failed to parse games from HTML\n");
+                          }
+                      } 
+                      
+                      else {
+                      	LOG_DEBUG("Failed to fetch game list\n");
+                      	inst::ui::mainApp->CreateShowDialog("inst.net.index_error"_lang, "inst.net.index_error_info"_lang, {"common.ok"_lang}, true);
+                      }
+                    }
                 }
 
                 struct sockaddr_in client;
@@ -329,6 +411,8 @@ namespace netInstStuff{
         }
         catch (std::runtime_error& e)
         {
+        		close(m_serverSocket);
+            m_serverSocket = 0;
             LOG_DEBUG("Failed to perform remote install!\n");
             LOG_DEBUG("%s", e.what());
             fprintf(stdout, "%s", e.what());

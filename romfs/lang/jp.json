@@ -59,6 +59,8 @@
                 "alt_name": "Googleドライブファイル",
                 "source_string": " Googleドライブから"
             },
+            "index_error": "No games found!",
+            "index_error_info": "Did you type the correct URL?",
             "top_info": "サーバーからインストールするファイルを選択し、＋ボタンを押してください！",
             "top_info1": "接続を待機しています...スイッチのIPアドレスは次のとおりです。: ",
             "failed": "リモートインストールを実行できませんでした！",

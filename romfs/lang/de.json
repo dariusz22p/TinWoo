@@ -59,6 +59,8 @@
                 "alt_name": "Google Drive Datei",
                 "source_string": " von Google Drive"
             },
+            "index_error": "No games found!",
+            "index_error_info": "Did you type the correct URL?",
             "top_info": "Wähle Dateien zur Installation vom Server aus und drücke dann \ue0b3 !",
             "top_info1": "Warte auf eine Verbindung... Die IP Adresse deiner Switch ist: ",
             "failed": "Ferninstallation fehlgeschlagen!",

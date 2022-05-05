@@ -42,6 +42,9 @@ namespace Language {
             case 6:
                 languagePath = "romfs:/lang/zh-rTW.json";
                 break;
+            case 99:
+                languagePath = "romfs:/lang/en.json";
+                break;
             default:
             		if (std::filesystem::exists(inst::config::appDir + "/lang/custom.json")) {
             			languagePath = (inst::config::appDir + "/lang/custom.json");

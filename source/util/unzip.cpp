@@ -48,7 +48,7 @@ bool _makeDirectoryParents(std::string path)
                 //Done!
                 bSuccess = true;
                 break;
-                //std::string getHost("");
+                //std::string getHost();
             default:
                 bSuccess = false;
                 break;

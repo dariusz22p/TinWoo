@@ -59,6 +59,8 @@
                 "alt_name": "Файл Google Drive",
                 "source_string": " из Google Drive"
             },
+            "index_error": "No games found!",
+            "index_error_info": "Did you type the correct URL?",
             "top_info": "Выберите какие файлы вы хотите установить из сервера и нажмите \"+\"!",
             "top_info1": "Ожидание подключения... IP-адрес вашего Switch: ",
             "failed": "Не удалось выполнить установку из удалённого источника!",

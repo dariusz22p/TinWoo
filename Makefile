@@ -44,7 +44,7 @@ DATA		:=	data
 INCLUDES	:=	include include/ui include/data include/install include/nx include/nx/ipc include/util $(CURDIR)/include/Plutonium/Plutonium/include
 APP_TITLE	:=	TinWoo Installer
 APP_AUTHOR	:=	MrDude
-APP_VERSION	:=	1.0.5
+APP_VERSION	:=	1.0.7
 ROMFS		:=	romfs
 APP_ICON	:=	icon.jpg
 

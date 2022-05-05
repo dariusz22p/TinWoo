@@ -59,6 +59,8 @@
                 "alt_name": "File Google Drive",
                 "source_string": " da Google Drive"
             },
+            "index_error": "No games found!",
+            "index_error_info": "Did you type the correct URL?",
             "top_info": "Seleziona quali file vuoi installare dal server, poi premi il tasto Più!",
             "top_info1": "Aspettando una connnessione... L'indirizzo IP è: ",
             "failed": "Impossibile eseguire l'installazione remota!",

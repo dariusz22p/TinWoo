@@ -16,7 +16,7 @@ namespace inst::ui {
     extern MainApplication *mainApp;
     s32 xxx=0;
 
-    std::string lastUrl = "https://";
+    std::string httplastUrl = "http://";
     std::string lastFileID = "";
     std::string sourceString = "";
 
@@ -39,11 +39,9 @@ namespace inst::ui {
             this->appVersionText = TextBlock::New(1210, 680, "");
         }
         this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
-        //this->pageInfoText = TextBlock::New(10, 109, "", 30);
         this->pageInfoText = TextBlock::New(10, 109, "");
         this->pageInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
         this->pageInfoText->SetColor(COLOR("#FFFFFFFF"));
-        //this->butText = TextBlock::New(10, 678, "", 24);
         this->butText = TextBlock::New(10, 678, "");
         this->butText->SetColor(COLOR("#FFFFFFFF"));
         this->menu = pu::ui::elm::Menu::New(0, 156, 1280, COLOR("#FFFFFF00"), COLOR("#4f4f4d33"), 84, (506 / 84));
@@ -95,21 +93,34 @@ namespace inst::ui {
 
     void netInstPage::startNetwork() {
         this->butText->SetText("inst.net.buttons"_lang);
+        //this->butText->SetText("inst.net.buttons"_lang + "    \ue0f0 Install From HTTP Directory");
         this->menu->SetVisible(false);
         this->menu->ClearItems();
         this->infoImage->SetVisible(true);
         mainApp->LoadLayout(mainApp->netinstPage);
         this->ourUrls = netInstStuff::OnSelected();
+        
         if (!this->ourUrls.size()) {
             mainApp->LoadLayout(mainApp->mainPage);
             return;
-        } else if (this->ourUrls[0] == "supplyUrl") {
+        } 
+        
+        else if (this->ourUrls[0] == "supplyUrl") {
             std::string keyboardResult;
             switch (mainApp->CreateShowDialog("inst.net.src.title"_lang, "common.cancel_desc"_lang, {"inst.net.src.opt0"_lang, "inst.net.src.opt1"_lang}, false)) {
                 case 0:
-                    keyboardResult = inst::util::softwareKeyboard("inst.net.url.hint"_lang, lastUrl, 500);
+                    keyboardResult = inst::util::softwareKeyboard("inst.net.url.hint"_lang, inst::config::httplastUrl, 500);
                     if (keyboardResult.size() > 0) {
-                        lastUrl = keyboardResult;
+                        httplastUrl = keyboardResult;
+                        
+                        if(keyboardResult == "") {
+                        	keyboardResult = "http://127.0.0.1";
+                        }
+                        else {
+                        	inst::config::httplastUrl = keyboardResult;
+                        	inst::config::setConfig();
+                        }
+                        
                         if (inst::util::formatUrlString(keyboardResult) == "" || keyboardResult == "https://" || keyboardResult == "http://") {
                             mainApp->CreateShowDialog("inst.net.url.invalid"_lang, "", {"common.ok"_lang}, false);
                             break;
@@ -139,6 +150,7 @@ namespace inst::ui {
         } else {
             mainApp->CallForRender(); // If we re-render a few times during this process the main screen won't flicker
             sourceString = "inst.net.source_string"_lang;
+            netConnected = true;
             this->pageInfoText->SetText("inst.net.top_info"_lang);
             this->butText->SetText("inst.net.buttons1"_lang);
             this->drawMenuItems(true);
@@ -177,7 +189,28 @@ namespace inst::ui {
         
         if  (hidGetTouchScreenStates(&state, 1)) {
           
-          if ((Down & HidNpadButton_A) || (state.count != xxx))
+          if (netConnected) {
+            if ((Down & HidNpadButton_A) || (state.count != xxx))
+            {
+                xxx = state.count;
+                
+                if (xxx != 1) {
+                	int var = this->menu->GetItems().size();
+              		auto s = std::to_string(var);
+              		if (s == "0") {
+              			//do nothing here because there's no items in the list, that way the app won't freeze
+                  }
+                  else {
+                  	this->selectTitle(this->menu->GetSelectedIndex());
+                  	if (this->menu->GetItems().size() == 1 && this->selectedUrls.size() == 1) {
+                  		this->startInstall(false);
+                    }
+                  }
+                }
+            }
+          }
+          
+          if ((Down & HidNpadButton_Minus) || (state.count != xxx))
           {
               xxx = state.count;
               
@@ -226,8 +259,14 @@ namespace inst::ui {
           		this->startInstall(false);
           		return;
             }
-            this->startInstall(false);	
+            this->startInstall(false);
           } 
         }
+        
+        if (Down & HidNpadButton_ZL)
+        	this->menu->SetSelectedIndex(std::max(0, this->menu->GetSelectedIndex() - 6));
+        
+        if (Down & HidNpadButton_ZR)
+        	this->menu->SetSelectedIndex(std::min((s32)this->menu->GetItems().size() - 1, this->menu->GetSelectedIndex() + 6));
     }
 }

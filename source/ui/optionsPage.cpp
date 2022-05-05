@@ -167,6 +167,12 @@ namespace inst::ui {
             mainApp->LoadLayout(mainApp->mainPage);
         }
         
+        if (Down & HidNpadButton_ZL)
+        	this->menu->SetSelectedIndex(std::max(0, this->menu->GetSelectedIndex() - 6));
+        
+        if (Down & HidNpadButton_ZR)
+        	this->menu->SetSelectedIndex(std::min((s32)this->menu->GetItems().size() - 1, this->menu->GetSelectedIndex() + 6));
+        
         HidTouchScreenState state={0};
         
         if  (hidGetTouchScreenStates(&state, 1)) {

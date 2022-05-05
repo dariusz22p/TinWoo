@@ -59,6 +59,8 @@
                 "alt_name": "Fichier Google Drive",
                 "source_string": " à partir de Google Drive"
             },
+            "index_error": "No games found!",
+            "index_error_info": "Did you type the correct URL?",
             "top_info": "Sélectionnez les fichiers que vous voulez installer à partir du serveur, puis appuyez sur le bouton Plus !",
             "top_info1": "En attente d'une connexion... L'adresse IP de votre switch est : ",
             "failed": "Echec de l'installation à distance !",
